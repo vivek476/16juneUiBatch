@@ -10,8 +10,8 @@ function Header() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-        <Link className="navbar-brand" to="/">SS Infotech</Link>
+      <nav className="navbar navbar-expand-lg navbar-dark px-3" style={{ background: 'linear-gradient(to right,rgb(77, 175, 159),rgb(89, 99, 242))' }}>
+        <Link className="navbar-brand" to="/">VivS Infotech</Link>
 
         {isLoggedIn ? (
           <div className="collapse navbar-collapse">
@@ -39,13 +39,13 @@ function Header() {
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link hover-effect" to="/home">Home</Link>
+                <Link className="nav-link text-white hover-effect" to="/home">Home</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link hover-effect" to="/about">About</Link>
+                <Link className="nav-link text-white hover-effect" to="/about">About</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link hover-effect" to="/contact">ContactUs</Link>
+                <Link className="nav-link text-white hover-effect" to="/contact">ContactUs</Link>
               </li>
             </ul>
             <ul className="navbar-nav ms-auto">
