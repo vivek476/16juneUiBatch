@@ -77,33 +77,52 @@ function Myaccount() {
 
             <div className="modal-body">
               <form>
-                <div className="mb-3">
-                  <label className="form-label">Company Name</label>
-                  <input type="text" className="form-control" defaultValue="VivS Infotech Pvt. Ltd." />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Address</label>
-                  <input type="text" className="form-control" defaultValue="101, Tech Park, Sector 5" />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">City</label>
-                  <input type="text" className="form-control" defaultValue="Indore" />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Pincode</label>
-                  <input type="text" className="form-control" defaultValue="452001" />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Mobile No.</label>
-                  <input type="text" className="form-control" defaultValue="+91-9876543210" />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Contact Person</label>
-                  <input type="text" className="form-control" defaultValue="Vivek Solanki" />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Detail</label>
-                  <textarea className="form-control" rows="3" defaultValue="Leading provider of IT solutions and training services." />
+                <div className="row">
+                  {/* Company Name */}
+                  <div className="mb-3 col-md-6">
+                    <label className="form-label">Company Name</label>
+                    <input type="text" className="form-control" defaultValue="VivS Infotech Pvt. Ltd." />
+                  </div>
+
+                  {/* Address */}
+                  <div className="mb-3 col-md-6">
+                    <label className="form-label">Address</label>
+                    <input type="text" className="form-control" defaultValue="101, Tech Park, Sector 5" />
+                  </div>
+
+                  {/* City */}
+                  <div className="mb-3 col-md-6">
+                    <label className="form-label">City</label>
+                    <input type="text" className="form-control" defaultValue="Indore" />
+                  </div>
+
+                  {/* Pincode */}
+                  <div className="mb-3 col-md-6">
+                    <label className="form-label">Pincode</label>
+                    <input type="text" className="form-control" defaultValue="452001" />
+                  </div>
+
+                  {/* Mobile No */}
+                  <div className="mb-3 col-md-6">
+                    <label className="form-label">Mobile No.</label>
+                    <input type="text" className="form-control" defaultValue="+91-9876543210" />
+                  </div>
+
+                  {/* Contact Person */}
+                  <div className="mb-3 col-md-6">
+                    <label className="form-label">Contact Person</label>
+                    <input type="text" className="form-control" defaultValue="Vivek Solanki" />
+                  </div>
+
+                  {/* Detail (full width) */}
+                  <div className="mb-3 col-12">
+                    <label className="form-label">Detail</label>
+                    <textarea
+                      className="form-control"
+                      rows="3"
+                      defaultValue="Leading provider of IT solutions and training services."
+                    />
+                  </div>
                 </div>
               </form>
             </div>

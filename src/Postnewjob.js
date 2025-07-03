@@ -36,69 +36,70 @@ function Postnewjob() {
 
             <div className="modal-body">
               <form>
+                <div className="row">
+                  {/* Job Title */}
+                  <div className="mb-3 col-md-6">
+                    <label htmlFor="jobTitle" className="form-label">Job Title</label>
+                    <input type="text" className="form-control" id="jobTitle" placeholder="Enter job title" />
+                  </div>
 
-                {/* Job Title */}
-                <div className="mb-3">
-                  <label htmlFor="jobTitle" className="form-label">Job Title</label>
-                  <input type="text" className="form-control" id="jobTitle" placeholder="Enter job title" />
+                  {/* Degree */}
+                  <div className="mb-3 col-md-6">
+                    <label htmlFor="degree" className="form-label">Degree</label>
+                    <select className="form-select" id="degree">
+                      <option selected disabled>Select degree</option>
+                      <option value="bca">BCA</option>
+                      <option value="btech">B.Tech</option>
+                      <option value="mca">MCA</option>
+                      <option value="mba">MBA</option>
+                    </select>
+                  </div>
+
+                  {/* Skill */}
+                  <div className="mb-3 col-md-6">
+                    <label htmlFor="skill" className="form-label">Skill</label>
+                    <select className="form-select" id="skill">
+                      <option selected disabled>Select skill</option>
+                      <option value="react">React</option>
+                      <option value="node">Node.js</option>
+                      <option value=".netcore">.Net Core</option>
+                      <option value="database">Database</option>
+                    </select>
+                  </div>
+
+                  {/* Salary */}
+                  <div className="mb-3 col-md-6">
+                    <label htmlFor="salary" className="form-label">Salary (in ₹)</label>
+                    <input type="number" className="form-control" id="salary" placeholder="Enter salary" />
+                  </div>
+
+                  {/* Experience */}
+                  <div className="mb-3 col-md-6">
+                    <label htmlFor="experience" className="form-label">Experience</label>
+                    <select className="form-select" id="experience">
+                      <option selected disabled>Select experience</option>
+                      <option value="0">Fresher</option>
+                      <option value="1">1 Year</option>
+                      <option value="2">2 Years</option>
+                      <option value="3">3+ Years</option>
+                    </select>
+                  </div>
+
+                  {/* No. of Vacancy */}
+                  <div className="mb-3 col-md-6">
+                    <label htmlFor="vacancy" className="form-label">No. of Vacancy</label>
+                    <input type="number" className="form-control" id="vacancy" placeholder="Enter number of vacancies" />
+                  </div>
+
+                  {/* Detail (full width) */}
+                  <div className="mb-3 col-12">
+                    <label htmlFor="detail" className="form-label">Job Description / Detail</label>
+                    <textarea className="form-control" id="detail" rows="3" placeholder="Enter job details..."></textarea>
+                  </div>
                 </div>
-
-                {/* Degree Dropdown */}
-                <div className="mb-3">
-                  <label htmlFor="degree" className="form-label">Degree</label>
-                  <select className="form-select" id="degree">
-                    <option selected disabled>Select degree</option>
-                    <option value="bca">BCA</option>
-                    <option value="btech">B.Tech</option>
-                    <option value="mca">MCA</option>
-                    <option value="mba">MBA</option>
-                  </select>
-                </div>
-
-                {/* Skill Dropdown */}
-                <div className="mb-3">
-                  <label htmlFor="skill" className="form-label">Skill</label>
-                  <select className="form-select" id="skill">
-                    <option selected disabled>Select skill</option>
-                    <option value="react">React</option>
-                    <option value="node">Node.js</option>
-                    <option value="java">.Net Core</option>
-                    <option value="python">Database</option>
-                  </select>
-                </div>
-
-                 {/* Salary */}
-                <div className="mb-3">
-                  <label htmlFor="salary" className="form-label">Salary (in ₹)</label>
-                  <input type="number" step="0.01" className="form-control" id="salary" placeholder="Enter salary" />
-                </div>
-
-                {/* Experience Dropdown */}
-                <div className="mb-3">
-                  <label htmlFor="experience" className="form-label">Experience</label>
-                  <select className="form-select" id="experience">
-                    <option selected disabled>Select experience</option>
-                    <option value="0">Fresher</option>
-                    <option value="1">1 Year</option>
-                    <option value="2">2 Years</option>
-                    <option value="3">3+ Years</option>
-                  </select>
-                </div>
-
-                {/* No. of Vacancy */}
-                <div className="mb-3">
-                  <label htmlFor="vacancy" className="form-label">No. of Vacancy</label>
-                  <input type="number" className="form-control" id="vacancy" placeholder="Enter number of vacancies" />
-                </div>
-
-                {/* Detail */}
-                <div className="mb-3">
-                  <label htmlFor="detail" className="form-label">Job Description / Detail</label>
-                  <textarea className="form-control" id="detail" rows="3" placeholder="Enter job details..."></textarea>
-                </div>
-
               </form>
             </div>
+
 
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

@@ -1,34 +1,34 @@
-import React from 'react';
+import React from 'react'
 
-function Appliedjob() {
-  // Static sample data of applied jobs
-  const appliedJobs = [
+function Myappliedjob() {
+    // Static sample data of applied jobs
+    const myappliedjobs = [
     {
-      title: 'Fullstack Developer',
-      company: 'VivS Infotech',
+      title: 'Frontend Developer',
+      company: 'Intellect',
       location: 'Indore',
       appliedDate: '2024-07-01',
+      status: 'Pending'
+    },
+    {
+      title: 'Backend Developer',
+      company: 'PHN Technologies',
+      location: 'Bangalore',
+      appliedDate: '2025-06-25',
       status: 'Confirmed'
     },
     {
-      title: '.Net Core Backend Developer',
-      company: 'CodeWave Technologies',
-      location: 'Bangalore',
-      appliedDate: '2025-06-25',
-      status: 'Shortlisted'
-    },
-    {
-      title: 'React Developer',
+      title: 'Database Engineer',
       company: 'TechSquare Pvt. Ltd.',
       location: 'Remote',
       appliedDate: '2025-06-22',
-      status: 'Rejected'
+      status: 'Shortlisted'
     }
   ];
-
-  return (
+  
+    return (
     <div className="container mt-5">
-      <h3 className="mb-4">Applied Job Details</h3>
+      <h3 className="mb-4">My Applied Job Details</h3>
 
       <div className="table-responsive">
         <table className="table table-bordered table-striped text-center">
@@ -42,7 +42,7 @@ function Appliedjob() {
             </tr>
           </thead>
           <tbody>
-            {appliedJobs.map((job, index) => (
+            {myappliedjobs.map((job, index) => (
               <tr key={index}>
                 <td>{job.title}</td>
                 <td>{job.company}</td>
@@ -64,7 +64,7 @@ function Appliedjob() {
         </table>
       </div>
     </div>
-  );
+  )
 }
 
-export default Appliedjob;
+export default Myappliedjob
