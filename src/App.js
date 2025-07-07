@@ -2,8 +2,6 @@ import { BrowserRouter, Route, Routes, Link, useLocation } from 'react-router-do
 import Header from './Header';
 import Dashboard from './Dashboard';
 import Sample1 from './Sample1';
-import Sample2 from './Sample2';
-import Sample3 from './Sample3';
 import Footer from './Footer';
 import Welcome from './Employee/Welcome';
 import Myaccount from './Employee/Myaccount';
@@ -51,12 +49,6 @@ function Sidebar() {
           <li className="nav-item">
             <Link to="/sample1" className={`nav-link d-flex align-items-center ${location.pathname === "/sample1" ? "active" : "text-light"}`}><i className="bi bi-file-earmark-text me-2"></i> Sample 1</Link>
           </li>
-          <li className="nav-item">
-            <Link to="/sample2" className={`nav-link d-flex align-items-center ${location.pathname === "/sample2" ? "active" : "text-light" }`}><i className="bi bi-file-earmark-text me-2"></i> Sample 2<span className="badge bg-warning text-dark ms-auto">Updated</span></Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/sample3" className={`nav-link d-flex align-items-center ${location.pathname === "/sample3" ? "active" : "text-light"}`}><i className="bi bi-file-earmark-text me-2"></i> Sample 3</Link>
-          </li>
         </ul>
       </div>
     </div>
@@ -80,8 +72,6 @@ function App() {
             <Route path="/changepassword" element={<Changepassword />} /> 
             <Route path="/logout" element={<Logout />} />     
             <Route path="/sample1" element={<Sample1 />} />
-            <Route path="/sample2" element={<Sample2 />} />
-            <Route path="/sample3" element={<Sample3 />} />
           </Routes>
         </div>
       </div>
