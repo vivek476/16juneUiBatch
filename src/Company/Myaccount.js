@@ -4,33 +4,23 @@ function Myaccount() {
     const [countries, setCountries] = useState([
         {
             id: 1,
-            firstname: "Anil",
-            middlename: "Kumar",
-            lastname: "Sah",
-            address: "123 Main St",
-            city: "Delhi",
-            pincode: "110001",
-            mobile: "9876543210",
+            companyname: "VivS Infotech",
+            address: "101 IT Park",
+            city: "Indore",
+            pincode: "452002",
+            mobile: "9865214730",
+            contactperson: "Vivek Solanki",
             detail: "Leading Provider of IT Solutions and Training Services",
-            degree: "MCA",
-            skill: ".NET Core",
-            passyear: "2011",
-            experience: "3+ Years"
         },
     ]);
 
-    const [newFirstname, setNewFirstname] = useState("");
-    const [newMiddlename, setNewMiddlename] = useState("");
-    const [newLastname, setNewLastname] = useState("");
+    const [newCompanyname, setNewCompanyname] = useState("");
     const [newAddress, setNewAddress] = useState("");
     const [newCity, setNewCity] = useState("");
     const [newPincode, setNewPincode] = useState("");
     const [newMobile, setNewMobile] = useState("");
+    const [newContactperson, setNewContactperson] = useState("");
     const [newDetail, setNewDetail] = useState("");
-    const [newDegree, setNewDegree] = useState("");
-    const [newSkill, setNewSkill] = useState("");
-    const [newPassyear, setNewPassyear] = useState("");
-    const [newExperience, setNewExperience] = useState("");
 
     const [showAddModal, setShowAddModal] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
@@ -43,18 +33,13 @@ function Myaccount() {
                 c.id === 1
                     ? {
                         ...c,
-                        firstname: newFirstname,
-                        middlename: newMiddlename,
-                        lastname: newLastname,
+                        companyname: newCompanyname,
                         address: newAddress,
                         city: newCity,
                         pincode: newPincode,
                         mobile: newMobile,
+                        contactperson: newContactperson,
                         detail: newDetail,
-                        degree: newDegree,
-                        skill: newSkill,
-                        passyear: newPassyear,
-                        experience: newExperience
                     }
                     : c
             )
@@ -65,7 +50,7 @@ function Myaccount() {
     const handleDownload = () => {
         const header = "Full Name, Address, City, Pincode, Mobile, Detail, Degree, Skill, Pass Year, Experience\n";
         const csvData = countries.map(c =>
-            `${c.firstname} ${c.middlename} ${c.lastname}, ${c.address}, ${c.city}, ${c.pincode}, ${c.mobile}, ${c.detail}, ${c.degree}, ${c.skill}, ${c.passyear}, ${c.experience}`
+            `${c.companyname}, ${c.address}, ${c.city}, ${c.pincode}, ${c.mobile}, ${c.contactperson}, ${c.detail}`
         ).join("\n");
         const blob = new Blob([header + csvData], { type: "text/csv" });
         const link = document.createElement("a");
@@ -75,7 +60,7 @@ function Myaccount() {
     };
 
     const filteredCountries = countries.filter(c =>
-        `${c.firstname} ${c.lastname}`.toLowerCase().includes(searchTerm.toLowerCase())
+        `${c.companyname}, ${c.address}`.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const startIndex = (currentPage - 1) * pageSize;
@@ -94,18 +79,13 @@ function Myaccount() {
                 onClick={() => {
                     const current = countries.find(c => c.id === 1);
                     if (current) {
-                        setNewFirstname(current.firstname);
-                        setNewMiddlename(current.middlename);
-                        setNewLastname(current.lastname);
+                        setNewCompanyname(current.companyname);
                         setNewAddress(current.address);
                         setNewCity(current.city);
                         setNewPincode(current.pincode);
                         setNewMobile(current.mobile);
+                        setNewContactperson(current.contactperson);
                         setNewDetail(current.detail);
-                        setNewDegree(current.degree);
-                        setNewSkill(current.skill);
-                        setNewPassyear(current.passyear);
-                        setNewExperience(current.experience);
                     }
                     setShowAddModal(true);
                 }}
@@ -157,36 +137,26 @@ function Myaccount() {
                 <thead className="table-light">
                     <tr>
                         <th>ID</th>
-                        <th>First Name</th>
-                        <th>Middle Name</th>
-                        <th>Last Name</th>
+                        <th>Company Name</th>
                         <th>Address</th>
                         <th>City</th>
                         <th>Pincode</th>
                         <th>Mobile No.</th>
+                        <th>Contact Person</th>
                         <th>Detail</th>
-                        <th>Degree</th>
-                        <th>Skill</th>
-                        <th>Pass Year</th>
-                        <th>Experience</th>
                     </tr>
                 </thead>
                 <tbody>
                     {paginatedCountries.map(c => (
                         <tr key={c.id}>
                             <td>{c.id}</td>
-                            <td>{c.firstname}</td>
-                            <td>{c.middlename}</td>
-                            <td>{c.lastname}</td>
+                            <td>{c.companyname}</td>
                             <td>{c.address}</td>
                             <td>{c.city}</td>
                             <td>{c.pincode}</td>
                             <td>{c.mobile}</td>
+                            <td>{c.contactperson}</td>
                             <td>{c.detail}</td>
-                            <td>{c.degree}</td>
-                            <td>{c.skill}</td>
-                            <td>{c.passyear}</td>
-                            <td>{c.experience}</td>
                         </tr>
                     ))}
                     {paginatedCountries.length === 0 && (
@@ -222,16 +192,8 @@ function Myaccount() {
                                     <div className="row">
                                         {/* All Form Fields */}
                                         <div className="mb-3 col-md-6">
-                                            <label className="form-label">First Name</label>
-                                            <input type="text" className="form-control" value={newFirstname} onChange={e => setNewFirstname(e.target.value)} />
-                                        </div>
-                                        <div className="mb-3 col-md-6">
-                                            <label className="form-label">Middle Name</label>
-                                            <input type="text" className="form-control" value={newMiddlename} onChange={e => setNewMiddlename(e.target.value)} />
-                                        </div>
-                                        <div className="mb-3 col-md-6">
-                                            <label className="form-label">Last Name</label>
-                                            <input type="text" className="form-control" value={newLastname} onChange={e => setNewLastname(e.target.value)} />
+                                            <label className="form-label">Company Name</label>
+                                            <input type="text" className="form-control" value={newCompanyname} onChange={e => setNewCompanyname(e.target.value)} />
                                         </div>
                                         <div className="mb-3 col-md-6">
                                             <label className="form-label">Address</label>
@@ -250,52 +212,12 @@ function Myaccount() {
                                             <input type="text" className="form-control" value={newMobile} onChange={e => setNewMobile(e.target.value)} />
                                         </div>
                                         <div className="mb-3 col-md-6">
-                                            <label className="form-label">Degree</label>
-                                            <select className="form-select" value={newDegree} onChange={e => setNewDegree(e.target.value)}>
-                                                <option value="">Select degree</option>
-                                                <option value="bca">BCA</option>
-                                                <option value="btech">B.Tech</option>
-                                                <option value="bsc">B.Sc</option>
-                                                <option value="mtech">M.Tech</option>
-                                                <option value="mca">MCA</option>
-                                            </select>
-                                        </div>
-                                        <div className="mb-3 col-md-6">
-                                            <label className="form-label">Skill</label>
-                                            <select className="form-select" value={newSkill} onChange={e => setNewSkill(e.target.value)}>
-                                                <option value="">Select skill</option>
-                                                <option value="reactjs">React.js</option>
-                                                <option value="nodejs">Node.js</option>
-                                                <option value=".netcore">.Net Core</option>
-                                                <option value="angular">Angular</option>
-                                                <option value="next">Next</option>
-                                                <option value="sql/database">SQL / Database</option>
-                                            </select>
-                                        </div>
-                                        <div className="mb-3 col-12">
-                                            <label className="form-label">Detail</label>
-                                            <textarea className="form-control" rows="3" value={newDetail} onChange={e => setNewDetail(e.target.value)} />
-                                        </div>
-                                        <div className="mb-3 col-md-6">
-                                            <label className="form-label">Pass Year</label>
-                                            <select className="form-select" value={newPassyear} onChange={e => setNewPassyear(e.target.value)}>
-                                                <option value="">Select pass year</option>
-                                                {Array.from({ length: 18 }, (_, i) => 2008 + i).map(y => (
-                                                    <option key={y} value={y}>{y}</option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                        <div className="mb-3 col-md-6">
-                                            <label className="form-label">Experience</label>
-                                            <select className="form-select" value={newExperience} onChange={e => setNewExperience(e.target.value)}>
-                                                <option value="">Select experience</option>
-                                                <option value="0">Fresher</option>
-                                                <option value="1">1 Year</option>
-                                                <option value="2">2 Years</option>
-                                                <option value="3">3 Years</option>
-                                                <option value="4">4 Years</option>
-                                                <option value="5">5+ Years</option>
-                                            </select>
+                                            <label className="form-label">Contact Person</label>
+                                            <input type="text" className="form-control" value={newContactperson} onChange={e => setNewContactperson(e.target.value)} />
+                                            <div className="mb-3 col-12">
+                                                <label className="form-label">Detail</label>
+                                                <textarea className="form-control" rows="3" value={newDetail} onChange={e => setNewDetail(e.target.value)} />
+                                            </div>
                                         </div>
                                     </div>
                                 </form>

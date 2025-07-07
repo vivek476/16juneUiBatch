@@ -3,19 +3,25 @@ import Header from './Header';
 import Dashboard from './Dashboard';
 import Sample1 from './Sample1';
 import Footer from './Footer';
-import Welcome from './Employee/Welcome';
-import Myaccount from './Employee/Myaccount';
-import Jobmatches from './Employee/Jobmatches';
-import Myappliedjob from './Employee/Myappliedjob';
-import Myinbox from './Employee/Myinbox';
-import Changepassword from './Employee/Changepassword';
-import Logout from './Employee/Logout';
+import EmployeeWelcome from './Employee/Welcome';
+import EmployeeMyaccount from './Employee/Myaccount';
+import EmployeeJobmatches from './Employee/Jobmatches';
+import EmployeeMyappliedjob from './Employee/Myappliedjob';
+import EmployeeMyinbox from './Employee/Myinbox';
+import EmployeeChangepassword from './Employee/Changepassword';
+import EmployeeLogout from './Employee/Logout';
+import CompanyPostnewjob from './Company/Postnewjob';
+import CompanyMyaccount from './Company/Myaccount';
+import CompanyProfilematch from './Company/Profilematch';
+import CompanyAppliedjob from './Company/Appliedjob';
+import CompanyChangepassword from './Company/Changepassword';
+import CompanyLogout from './Company/Logout';
 
 function Sidebar() {
   const location = useLocation();
 
   return (
-    <div className="bg-dark text-light vh-100" style={{ width: "250px" }}>
+    <div className="navbar navbar-expand-lg bg-dark custom-navbar" style={{ width: "250px" }}>
       <div className="p-3">
         <h4 className="mb-4">
           <i className="bi bi-grid-fill me-2"></i>
@@ -26,28 +32,51 @@ function Sidebar() {
             <Link to="/dashboard" className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"}`}><i className="bi bi-speedometer2 me-2"></i> Dashboard<span className="badge bg-primary ms-auto">New</span></Link>
           </li>
           <li className="nav-item">
-            <Link to="/welcome" className={`nav-link d-flex align-items-center ${location.pathname === "/welcome" ? "active" : "text-light"}`}><i className="bi bi-emoji-smile me-2"></i> Welcome<span className="badge bg-success ms-auto">Hot</span></Link>
+            <Link to="/employee/welcome" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/welcome" ? "active" : "text-light"}`}><i className="bi bi-emoji-smile me-2"></i> Welcome<span className="badge bg-success ms-auto">Hot</span></Link>
           </li>
           <li className="nav-item">
-            <Link to="/myaccount" className={`nav-link d-flex align-items-center ${location.pathname === "/myaccount" ? "active" : "text-light"}`}><i className="bi bi-person-fill me-2"></i> My Account</Link>
+            <Link to="/employee/myaccount" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/myaccount" ? "active" : "text-light"}`}><i className="bi bi-person-fill me-2"></i> My Account</Link>
           </li>
           <li className="nav-item">
-            <Link to="/jobmatches" className={`nav-link d-flex align-items-center ${location.pathname === "/jobmatches" ? "active" : "text-light"}`}><i className="bi bi-briefcase me-2"></i> Job Matches</Link>
+            <Link to="/employee/jobmatches" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/jobmatches" ? "active" : "text-light"}`}><i className="bi bi-briefcase me-2"></i> Job Matches</Link>
           </li>
           <li className="nav-item">
-            <Link to="/myappliedjob" className={`nav-link d-flex align-items-center ${location.pathname === "/myappliedjob" ? "active" : "text-light"}`}><i className="bi bi-file-earmark-check me-2"></i> My Applied Job</Link>
+            <Link to="/employee/myappliedjob" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/myappliedjob" ? "active" : "text-light"}`}><i className="bi bi-file-earmark-check me-2"></i> My Applied Job</Link>
           </li>
           <li className="nav-item">
-            <Link to="/myinbox" className={`nav-link d-flex align-items-center ${location.pathname === "/myinbox" ? "active" : "text-light"}`}><i className="bi bi-envelope-fill me-2"></i> My Inbox</Link>
+            <Link to="/employee/myinbox" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/myinbox" ? "active" : "text-light"}`}><i className="bi bi-envelope-fill me-2"></i> My Inbox</Link>
           </li>
           <li className="nav-item">
-            <Link to="/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/changepassword" ? "active" : "text-light"}`}><i className="bi bi-lock-fill me-2"></i> Change Password</Link>
+            <Link to="/employee/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/changepassword" ? "active" : "text-light"}`}><i className="bi bi-lock-fill me-2"></i> Change Password</Link>
           </li>
           <li className="nav-item">
-            <Link to="/logout" className={`nav-link d-flex align-items-center ${location.pathname === "/logout" ? "active" : "text-light"}`}><i className="bi bi-box-arrow-right me-2"></i> Log Out</Link>
+            <Link to="/employee/logout" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/logout" ? "active" : "text-danger"}`}><i className="bi bi-box-arrow-right me-2"></i> Log Out</Link>
           </li>
           <li className="nav-item">
             <Link to="/sample1" className={`nav-link d-flex align-items-center ${location.pathname === "/sample1" ? "active" : "text-light"}`}><i className="bi bi-file-earmark-text me-2"></i> Sample 1</Link>
+          </li>
+        </ul>
+        <br />
+        <br />
+        <h3 className="text-center text-light">Company Portal</h3>
+        <ul className="nav nav-pills flex-column gap-2">
+          <li className="nav-item">
+            <Link to="/company/postnewjob" className={`nav-link d-flex align-items-center ${location.pathname === "/company/postnewjob" ? "active" : "text-light"}`}><i className="bi bi-plus-circle-fill me-2"></i> Post New Job</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/company/myaccount" className={`nav-link d-flex align-items-center ${location.pathname === "/company/myaccount" ? "active" : "text-light"}`}><i className="bi bi-person-circle me-2"></i> My Account</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/company/profilematch" className={`nav-link d-flex align-items-center ${location.pathname === "/company/profilematch" ? "active" : "text-light"}`}><i className="bi bi-person-check-fill me-2"></i> Profile Match</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/company/appliedjob" className={`nav-link d-flex align-items-center ${location.pathname === "/company/appliedjob" ? "active" : "text-light"}`}><i className="bi bi-check2-square me-2"></i> Applied Job</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/company/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/company/changepassword" ? "active" : "text-light"}`}><i className="bi bi-lock-fill me-2"></i> Change Password</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/company/logout" className={`nav-link d-flex align-items-center ${location.pathname === "/company/logout" ? "active" : "text-danger"}`}><i className="bi bi-box-arrow-right me-2"></i> Log Out</Link>
           </li>
         </ul>
       </div>
@@ -64,14 +93,20 @@ function App() {
         <div className="flex-grow-1 p-4">
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/welcome" element={<Welcome />} />            
-            <Route path="/myaccount" element={<Myaccount />} /> 
-            <Route path="/jobmatches" element={<Jobmatches />} />
-            <Route path="/myappliedjob" element={<Myappliedjob />} /> 
-            <Route path="/myinbox" element={<Myinbox />} />    
-            <Route path="/changepassword" element={<Changepassword />} /> 
-            <Route path="/logout" element={<Logout />} />     
+            <Route path="/employee/welcome" element={<EmployeeWelcome />} />
+            <Route path="/employee/myaccount" element={<EmployeeMyaccount />} />
+            <Route path="/employee/jobmatches" element={<EmployeeJobmatches />} />
+            <Route path="/employee/myappliedjob" element={<EmployeeMyappliedjob />} />
+            <Route path="/employee/myinbox" element={<EmployeeMyinbox />} />
+            <Route path="/employee/changepassword" element={<EmployeeChangepassword />} />
+            <Route path="/employee/logout" element={<EmployeeLogout />} />
             <Route path="/sample1" element={<Sample1 />} />
+            <Route path="/company/postnewjob" element={<CompanyPostnewjob />} />
+            <Route path="/company/myaccount" element={<CompanyMyaccount />} />
+            <Route path="/company/profilematch" element={<CompanyProfilematch />} />
+            <Route path="/company/appliedjob" element={<CompanyAppliedjob />} />
+            <Route path="/company/changepassword" element={<CompanyChangepassword />} />
+            <Route path="/company/logout" element={<CompanyLogout />} />
           </Routes>
         </div>
       </div>
