@@ -44,7 +44,7 @@ function Sample1() {
 
   return (
     <div className="container mt-4">
-      <h2>Country Management</h2>
+      <h2 className="text-muted"><i className="bi bi-map me-2 text-success"></i>Country Management</h2>
       <button className="btn btn-primary mb-3" onClick={() => setShowAddModal(true)}>Add Country</button>
       <div className="row g-2 mb-3 align-items-center">
         <div className="col-md-4">

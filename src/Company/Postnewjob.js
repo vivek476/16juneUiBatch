@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 
 function Postnewjob() {
   const [jobs, setJobs] = useState([
@@ -78,7 +79,7 @@ function Postnewjob() {
 
   return (
     <div className="container mt-4">
-      <h2>Post New Job</h2>
+      <h2 className="text-muted"><i className="bi bi-plus-circle me-2 text-success"></i>Post New Job</h2>
       <button className="btn btn-primary mb-3" onClick={() => setShowAddModal(true)}>Post Job</button>
 
       <div className="row g-2 mb-3 align-items-center">
@@ -127,6 +128,7 @@ function Postnewjob() {
             <th>Salary</th>
             <th>Vacancy</th>
             <th>Details</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -141,6 +143,13 @@ function Postnewjob() {
                 <td>{j.salary}</td>
                 <td>{j.vacancy}</td>
                 <td>{j.details}</td>
+                <td>
+                  <div className="d-flex gap-2 justify-content-center">
+                    <button className="btn btn-sm btn-outline-primary" title="View"><FaEye /></button>
+                    <button className="btn btn-sm btn-outline-success" title="Edit"><FaEdit /></button>
+                    <button className="btn btn-sm btn-outline-danger" title="Delete"><FaTrash /></button>
+                  </div>
+                </td>
               </tr>
             ))
           ) : (

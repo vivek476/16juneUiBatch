@@ -35,7 +35,7 @@ function Myaccount() {
     const [showAddModal, setShowAddModal] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(3);
+    const [pageSize, ] = useState(3);
 
     const handleUpdateDetails = () => {
         setCountries(prevCountries =>
@@ -84,11 +84,11 @@ function Myaccount() {
         startIndex + pageSize
     );
 
-    const totalPages = Math.ceil(filteredCountries.length / pageSize);
+    // const totalPages = Math.ceil(filteredCountries.length / pageSize);
 
     return (
         <div className="container mt-4">
-            <h2>My Account</h2>
+            <h2 className="text-muted"><i className="bi bi-person-fill me-2 text-success"></i>My Account</h2>
             <button
                 className="btn btn-primary mb-3"
                 onClick={() => {
@@ -135,7 +135,7 @@ function Myaccount() {
                         <i className="bi bi-download"></i> Export
                     </button>
                 </div>
-                <div className="col-md-4 text-md-end">
+                {/* <div className="col-md-4 text-md-end">
                     <label className="form-label me-2 mb-0">Items per page:</label>
                     <select
                         className="form-select d-inline-block w-auto"
@@ -150,7 +150,7 @@ function Myaccount() {
                         <option value={5}>5</option>
                         <option value={10}>10</option>
                     </select>
-                </div>
+                </div> */}
             </div>
 
             <table className="table table-bordered table-striped">
@@ -198,7 +198,7 @@ function Myaccount() {
             </table>
 
             {/* Pagination */}
-            <nav>
+            {/* <nav>
                 <ul className="pagination justify-content-center">
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                         <li key={page} className={`page-item ${currentPage === page ? "active" : ""}`}>
@@ -206,7 +206,7 @@ function Myaccount() {
                         </li>
                     ))}
                 </ul>
-            </nav>
+            </nav> */}
 
             {/* Modal */}
             {showAddModal && (

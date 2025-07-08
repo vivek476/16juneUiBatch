@@ -83,10 +83,10 @@ function Appliedjob() {
 
   return (
     <div className="container mt-4">
-      <h2>Applied Jobs</h2>
-      <button className="btn btn-primary mb-3" onClick={() => setShowAddModal(true)}>
+      <h2 className="text-muted"><i className="bi bi-check2-square me-2 text-success"></i>Applied Jobs</h2>
+      {/* <button className="btn btn-primary mb-3" onClick={() => setShowAddModal(true)}>
         Search By Position
-      </button>
+      </button> */}
 
       <div className="row g-2 mb-3 align-items-center">
         <div className="col-md-4">
@@ -173,7 +173,7 @@ function Appliedjob() {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">Search By Position</h5>
-                <button type="button" className="btn-close" onClick={() => setShowAddModal(false)}></button>
+                 <button type="button" className="btn-close" onClick={() => setShowAddModal(false)}></button> 
               </div>
               <div className="modal-body">
                 <input

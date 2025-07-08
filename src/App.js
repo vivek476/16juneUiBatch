@@ -14,8 +14,7 @@ import CompanyPostnewjob from './Company/Postnewjob';
 import CompanyMyaccount from './Company/Myaccount';
 import CompanyProfilematch from './Company/Profilematch';
 import CompanyAppliedjob from './Company/Appliedjob';
-import CompanyChangepassword from './Company/Changepassword';
-import CompanyLogout from './Company/Logout';
+
 
 function Sidebar() {
   const location = useLocation();
@@ -29,31 +28,31 @@ function Sidebar() {
         </h4>
         <ul className="nav nav-pills flex-column gap-2">
           <li className="nav-item">
-            <Link to="/dashboard" className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"}`}><i className="bi bi-speedometer2 me-2"></i> Dashboard<span className="badge bg-primary ms-auto">New</span></Link>
+            <Link to="/dashboard" className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"}`}><i className="bi bi-speedometer2 me-2 text-primary"></i> Dashboard<span className="badge bg-primary ms-auto">New</span></Link>
           </li>
           <li className="nav-item">
-            <Link to="/employee/welcome" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/welcome" ? "active" : "text-light"}`}><i className="bi bi-emoji-smile me-2"></i> Welcome<span className="badge bg-success ms-auto">Hot</span></Link>
+            <Link to="/employee/welcome" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/welcome" ? "active" : "text-light"}`}><i className="bi bi-emoji-smile me-2 text-warning"></i> Welcome<span className="badge bg-success ms-auto">Hot</span></Link>
           </li>
           <li className="nav-item">
-            <Link to="/employee/myaccount" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/myaccount" ? "active" : "text-light"}`}><i className="bi bi-person-fill me-2"></i> My Account</Link>
+            <Link to="/employee/myaccount" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/myaccount" ? "active" : "text-light"}`}><i className="bi bi-person-fill me-2 text-primary"></i> My Account</Link>
           </li>
           <li className="nav-item">
-            <Link to="/employee/jobmatches" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/jobmatches" ? "active" : "text-light"}`}><i className="bi bi-briefcase me-2"></i> Job Matches</Link>
+            <Link to="/employee/jobmatches" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/jobmatches" ? "active" : "text-light"}`}><i className="bi bi-briefcase me-2  text-success"></i> Job Matches</Link>
           </li>
           <li className="nav-item">
-            <Link to="/employee/myappliedjob" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/myappliedjob" ? "active" : "text-light"}`}><i className="bi bi-file-earmark-check me-2"></i> My Applied Job</Link>
+            <Link to="/employee/myappliedjob" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/myappliedjob" ? "active" : "text-light"}`}><i className="bi bi-file-earmark-check me-2 text-info"></i> My Applied Job</Link>
           </li>
           <li className="nav-item">
-            <Link to="/employee/myinbox" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/myinbox" ? "active" : "text-light"}`}><i className="bi bi-envelope-fill me-2"></i> My Inbox</Link>
+            <Link to="/employee/myinbox" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/myinbox" ? "active" : "text-light"}`}><i className="bi bi-envelope-fill me-2  text-info"></i> My Inbox</Link>
           </li>
           <li className="nav-item">
-            <Link to="/employee/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/changepassword" ? "active" : "text-light"}`}><i className="bi bi-lock-fill me-2"></i> Change Password</Link>
+            <Link to="/employee/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/changepassword" ? "active" : "text-light"}`}><i className="bi bi-lock-fill me-2 text-warning"></i> Change Password</Link>
           </li>
           <li className="nav-item">
-            <Link to="/employee/logout" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/logout" ? "active" : "text-danger"}`}><i className="bi bi-box-arrow-right me-2"></i> Log Out</Link>
+            <Link to="/employee/logout" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/logout" ? "active" : "text-danger"}`}><i className="bi bi-box-arrow-right me-2 text-danger"></i> Log Out</Link>
           </li>
           <li className="nav-item">
-            <Link to="/sample1" className={`nav-link d-flex align-items-center ${location.pathname === "/sample1" ? "active" : "text-light"}`}><i className="bi bi-file-earmark-text me-2"></i> Sample 1</Link>
+            <Link to="/sample1" className={`nav-link d-flex align-items-center ${location.pathname === "/sample1" ? "active" : "text-light"}`}><i className="bi bi-file-earmark-text me-2 text-primary"></i> Sample 1</Link>
           </li>
         </ul>
         <br />
@@ -61,22 +60,16 @@ function Sidebar() {
         <h3 className="text-center text-light">Company Portal</h3>
         <ul className="nav nav-pills flex-column gap-2">
           <li className="nav-item">
-            <Link to="/company/postnewjob" className={`nav-link d-flex align-items-center ${location.pathname === "/company/postnewjob" ? "active" : "text-light"}`}><i className="bi bi-plus-circle-fill me-2"></i> Post New Job</Link>
+            <Link to="/company/postnewjob" className={`nav-link d-flex align-items-center ${location.pathname === "/company/postnewjob" ? "active" : "text-light"}`}><i className="bi bi-plus-circle me-2 text-warning"></i> Post New Job</Link>
           </li>
           <li className="nav-item">
-            <Link to="/company/myaccount" className={`nav-link d-flex align-items-center ${location.pathname === "/company/myaccount" ? "active" : "text-light"}`}><i className="bi bi-person-circle me-2"></i> My Account</Link>
+            <Link to="/company/myaccount" className={`nav-link d-flex align-items-center ${location.pathname === "/company/myaccount" ? "active" : "text-light"}`}><i className="bi bi-person-circle me-2 text-primary"></i> My Account</Link>
           </li>
           <li className="nav-item">
-            <Link to="/company/profilematch" className={`nav-link d-flex align-items-center ${location.pathname === "/company/profilematch" ? "active" : "text-light"}`}><i className="bi bi-person-check-fill me-2"></i> Profile Match</Link>
+            <Link to="/company/profilematch" className={`nav-link d-flex align-items-center ${location.pathname === "/company/profilematch" ? "active" : "text-light"}`}><i className="bi bi-person-check-fill me-2 text-info"></i> Profile Match</Link>
           </li>
           <li className="nav-item">
-            <Link to="/company/appliedjob" className={`nav-link d-flex align-items-center ${location.pathname === "/company/appliedjob" ? "active" : "text-light"}`}><i className="bi bi-check2-square me-2"></i> Applied Job</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/company/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/company/changepassword" ? "active" : "text-light"}`}><i className="bi bi-lock-fill me-2"></i> Change Password</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/company/logout" className={`nav-link d-flex align-items-center ${location.pathname === "/company/logout" ? "active" : "text-danger"}`}><i className="bi bi-box-arrow-right me-2"></i> Log Out</Link>
+            <Link to="/company/appliedjob" className={`nav-link d-flex align-items-center ${location.pathname === "/company/appliedjob" ? "active" : "text-light"}`}><i className="bi bi-check2-square me-2 text-success"></i> Applied Job</Link>
           </li>
         </ul>
       </div>
@@ -105,8 +98,6 @@ function App() {
             <Route path="/company/myaccount" element={<CompanyMyaccount />} />
             <Route path="/company/profilematch" element={<CompanyProfilematch />} />
             <Route path="/company/appliedjob" element={<CompanyAppliedjob />} />
-            <Route path="/company/changepassword" element={<CompanyChangepassword />} />
-            <Route path="/company/logout" element={<CompanyLogout />} />
           </Routes>
         </div>
       </div>

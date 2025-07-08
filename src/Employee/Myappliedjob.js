@@ -42,8 +42,8 @@ function Myappliedjob() {
 
     return (
         <div className="container mt-4">
-            <h2>My Applied Job</h2>
-            <button className="btn btn-primary mb-3" onClick={() => setShowAddModal(true)}>Search By Company</button>
+            <h2 className="text-muted"><i className="bi bi-file-earmark-check me-2 text-success"></i>My Applied Job</h2>
+            {/* <button className="btn btn-primary mb-3" onClick={() => setShowAddModal(true)}>Search By Company</button> */}
 
             <div className="row g-2 mb-3 align-items-center">
                 <div className="col-md-4">

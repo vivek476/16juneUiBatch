@@ -56,7 +56,7 @@ function Jobmatches() {
 
     return (
         <div className="container mt-4">
-            <h2>Job Matches</h2>
+            <h2 className="text-muted"><i className="bi bi-briefcase me-2 text-success"></i>Job Matches</h2>
             <button className="btn btn-primary mb-3" onClick={() => setShowAddModal(true)}>Match Job</button>
             <div className="row g-2 mb-3 align-items-center">
                 <div className="col-md-4">

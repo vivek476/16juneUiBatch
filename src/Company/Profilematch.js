@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaEye } from "react-icons/fa";
 
 function Profilematch() {
   const [profiles] = useState([
@@ -41,7 +42,7 @@ function Profilematch() {
 
   return (
     <div className="container mt-4">
-      <h2>Employee Profile Match</h2>
+      <h2 className="text-muted"><i className="bi bi-person-check-fill me-2 text-success"></i> Employee Profile Match</h2>
 
       <div className="row g-2 mb-3 align-items-center">
         <div className="col-md-4">
@@ -90,6 +91,7 @@ function Profilematch() {
             <th>Name</th>
             <th>Degree</th>
             <th>Skill</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -100,6 +102,9 @@ function Profilematch() {
                 <td>{p.name}</td>
                 <td>{p.degree}</td>
                 <td>{p.skill}</td>
+                <div className="d-flex gap-2 justify-content center">
+                  <button className="btn btn-sm btn-outline-primary" title="View"><FaEye /></button>
+                </div>
               </tr>
             ))
           ) : (

@@ -46,8 +46,8 @@ function Myinbox() {
 
   return (
     <div className="container mt-4">
-      <h2>My Inbox</h2>
-      <button className="btn btn-primary mb-3" onClick={() => setShowAddModal(true)}>Search Message</button>
+      <h2 className="text-muted"><i className="bi bi-envelope-fill me-2 text-success"></i>My Inbox</h2>
+      {/* <button className="btn btn-primary mb-3" onClick={() => setShowAddModal(true)}>Search Message</button> */}
 
       <div className="row g-2 mb-3 align-items-center">
         <div className="col-md-4">
