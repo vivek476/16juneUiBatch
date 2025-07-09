@@ -14,6 +14,9 @@ import CompanyPostnewjob from './Company/Postnewjob';
 import CompanyMyaccount from './Company/Myaccount';
 import CompanyProfilematch from './Company/Profilematch';
 import CompanyAppliedjob from './Company/Appliedjob';
+import AdminEmployeereport from './Admin/Employeereport';
+import AdminCompanyreport from './Admin/Companyreport';
+import AdminFeedbackreport from './Admin/Feedbackreport';
 
 
 function Sidebar() {
@@ -51,13 +54,10 @@ function Sidebar() {
           <li className="nav-item">
             <Link to="/employee/logout" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/logout" ? "active" : "text-danger"}`}><i className="bi bi-box-arrow-right me-2 text-danger"></i> Log Out</Link>
           </li>
-          <li className="nav-item">
-            <Link to="/sample1" className={`nav-link d-flex align-items-center ${location.pathname === "/sample1" ? "active" : "text-light"}`}><i className="bi bi-file-earmark-text me-2 text-primary"></i> Sample 1</Link>
-          </li>
         </ul>
         <br />
         <br />
-        <h3 className="text-center text-light">Company Portal</h3>
+        {/* <h3 className="text-center text-light">Company Portal</h3> */}
         <ul className="nav nav-pills flex-column gap-2">
           <li className="nav-item">
             <Link to="/company/postnewjob" className={`nav-link d-flex align-items-center ${location.pathname === "/company/postnewjob" ? "active" : "text-light"}`}><i className="bi bi-plus-circle me-2 text-warning"></i> Post New Job</Link>
@@ -70,6 +70,24 @@ function Sidebar() {
           </li>
           <li className="nav-item">
             <Link to="/company/appliedjob" className={`nav-link d-flex align-items-center ${location.pathname === "/company/appliedjob" ? "active" : "text-light"}`}><i className="bi bi-check2-square me-2 text-success"></i> Applied Job</Link>
+          </li>
+        </ul>
+        <br />
+        <br />
+        {/* <h3 className="text-center text-light">Admin Portal</h3> */}
+        <ul className="nav nav-pills flex-column gap-2">
+          <li className="nav-item">
+            <Link to="/admin/employeereport" className={`nav-link d-flex align-items-center ${location.pathname === "/admin/employeereport" ? "active" : "text-light"}`}><i className="bi bi-clipboard-check me-2 text-warning"></i> Employee Report</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/admin/companyreport" className={`nav-link d-flex align-items-center ${location.pathname === "/admin/companyreport" ? "active" : "text-light"}`}><i className="bi bi-bar-chart-line me-2 text-info"></i> Company Report</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/admin/feedbackreport" className={`nav-link d-flex align-items-center ${location.pathname === "/admin/feedbackreport" ? "active" : "text-light"}`}><i className="bi bi-chat-dots-fill me-2 text-danger"></i> Feedback Report</Link>
+          </li>
+          <br />
+          <li className="nav-item">
+            <Link to="/sample1" className={`nav-link d-flex align-items-center ${location.pathname === "/sample1" ? "active" : "text-light"}`}><i className="bi bi-file-earmark-text me-2 text-primary"></i> Sample 1</Link>
           </li>
         </ul>
       </div>
@@ -98,6 +116,9 @@ function App() {
             <Route path="/company/myaccount" element={<CompanyMyaccount />} />
             <Route path="/company/profilematch" element={<CompanyProfilematch />} />
             <Route path="/company/appliedjob" element={<CompanyAppliedjob />} />
+            <Route path="/admin/employeereport" element={<AdminEmployeereport />} />
+            <Route path="/admin/companyreport" element={<AdminCompanyreport />} />
+            <Route path="/admin/feedbackreport" element={<AdminFeedbackreport />} />
           </Routes>
         </div>
       </div>
