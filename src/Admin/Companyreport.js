@@ -37,7 +37,7 @@ function Companyreport() {
     return (
         <div className="container mt-4">
             <h2 className="text-muted">
-                <i className="bi bi-journal-text me-2 text-info"></i>
+                <i className="bi bi-buildings me-2 text-info"></i>
                 Company Report
             </h2>
 

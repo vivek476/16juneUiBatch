@@ -62,7 +62,7 @@ function Welcome() {
 
   return (
     <div className="container mt-5 text-center" onMouseMove={onDrag} onMouseUp={stopDrag} onMouseLeave={stopDrag}>
-      <p className="fs-5 text-muted mb-4 text-primary"><i className="bi bi-emoji-smile me-2 fs-3"></i>Here you can update your profile picture.</p>
+      <p className="fs-5 text-muted mb-4 text-primary"><i className="bi bi-emoji-smile me-2 text-warning fs-3"></i>Here you can update your profile picture.</p>
 
       <div className="d-flex justify-content-center">
         <div
