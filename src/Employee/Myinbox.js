@@ -1,7 +1,9 @@
 import { useState } from "react";
 
 function Myinbox() {
-  const [countries, ] = useState([
+  const companyOptions = ["TCS", "Infosys", "HCL", "Wipro", "Google", "Meta"];
+
+  const [messages, setMessages] = useState([
     { id: 1, company: "TCS", message: "This Is First Company Message." },
     { id: 2, company: "Infosys", message: "This Is Second Company Message" },
     { id: 3, company: "HCL", message: "This Is Third Company Message" },
@@ -14,21 +16,30 @@ function Myinbox() {
     { id: 10, company: "Meta", message: "This Is Tenth Company Message" }
   ]);
 
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(""); // actual search filter
-  const [newCompany, setNewCompany] = useState(""); // modal input
+  const [showSendModal, setShowSendModal] = useState(false);
+  const [selectedCompany, setSelectedCompany] = useState("");
+  const [messageText, setMessageText] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(3);
 
-  // 👇 This handles the Search from the modal
-  const handleSearchByCompany = () => {
-    setSearchTerm(newCompany);
-    setShowAddModal(false);
+  const handleSendMessage = () => {
+    if (selectedCompany && messageText.trim()) {
+      const newMessage = {
+        id: messages.length + 1,
+        company: selectedCompany,
+        message: messageText
+      };
+      setMessages([newMessage, ...messages]);
+      setSelectedCompany("");
+      setMessageText("");
+      setShowSendModal(false);
+    }
   };
 
   const handleDownload = () => {
     const header = "Company, Message\n";
-    const csv = countries.map(c => `${c.company}, ${c.message}`).join("\n");
+    const csv = messages.map(c => `${c.company}, ${c.message}`).join("\n");
     const blob = new Blob([header + csv], { type: "text/csv" });
     const link = document.createElement("a");
     link.href = window.URL.createObjectURL(blob);
@@ -36,21 +47,28 @@ function Myinbox() {
     link.click();
   };
 
-  const filteredCountries = countries.filter(c =>
+  const filteredMessages = messages.filter(c =>
     c.company.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const startIndex = (currentPage - 1) * pageSize;
-  const paginatedCountries = filteredCountries.slice(startIndex, startIndex + pageSize);
-  const totalPages = Math.ceil(filteredCountries.length / pageSize);
+  const paginatedMessages = filteredMessages.slice(startIndex, startIndex + pageSize);
+  const totalPages = Math.ceil(filteredMessages.length / pageSize);
 
   return (
     <div className="container mt-4">
-      <h2 className="text-muted"><i className="bi bi-envelope-fill me-2 text-success"></i>My Inbox</h2>
-      {/* <button className="btn btn-primary mb-3" onClick={() => setShowAddModal(true)}>Search Message</button> */}
-
+      <h2 className="text-muted">
+        <i className="bi bi-envelope-fill me-2 text-success"></i>My Inbox
+      </h2>
+      <div className="col-md-3">
+          <button className="btn btn-primary" onClick={() => setShowSendModal(true)}>
+            <i className="bi bi-send"></i> Send Message
+          </button>
+      </div>
+      <br />
+      <br />
       <div className="row g-2 mb-3 align-items-center">
-        <div className="col-md-4">
+        <div className="col-md-3">
           <input
             type="text"
             className="form-control"
@@ -62,12 +80,12 @@ function Myinbox() {
             }}
           />
         </div>
-        <div className="col-md-4">
+        <div className="col-md-3">
           <button className="btn btn-success" onClick={handleDownload} title="Download CSV">
             <i className="bi bi-download"></i> Export
           </button>
         </div>
-        <div className="col-md-4 text-md-end">
+        <div className="col-md-3 text-md-end">
           <label className="form-label me-2 mb-0">Items per page:</label>
           <select
             className="form-select d-inline-block w-auto"
@@ -94,8 +112,8 @@ function Myinbox() {
           </tr>
         </thead>
         <tbody>
-          {paginatedCountries.length > 0 ? (
-            paginatedCountries.map(c => (
+          {paginatedMessages.length > 0 ? (
+            paginatedMessages.map(c => (
               <tr key={c.id}>
                 <td>{c.id}</td>
                 <td>{c.company}</td>
@@ -121,35 +139,46 @@ function Myinbox() {
         </ul>
       </nav>
 
-      {/* Modal */}
-      {showAddModal && (
+      {/* Send Message Modal */}
+      {showSendModal && (
         <div className="modal fade show" style={{ display: "block" }} tabIndex="-1">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Search Message By Company</h5>
-                <button type="button" className="btn-close" onClick={() => setShowAddModal(false)}></button>
+                <h5 className="modal-title">Send New Message</h5>
+                <button type="button" className="btn-close" onClick={() => setShowSendModal(false)}></button>
               </div>
               <div className="modal-body">
-                <input
-                  type="text"
+                <label>Select Company:</label>
+                <select
+                  className="form-select mb-3"
+                  value={selectedCompany}
+                  onChange={e => setSelectedCompany(e.target.value)}
+                >
+                  <option value="">-- Select Company --</option>
+                  {companyOptions.map((c, i) => (
+                    <option key={i} value={c}>{c}</option>
+                  ))}
+                </select>
+
+                <label>Type Message:</label>
+                <textarea
                   className="form-control"
-                  placeholder="Enter Company Name"
-                  value={newCompany}
-                  onChange={e => setNewCompany(e.target.value)}
-                />
+                  rows={4}
+                  placeholder="Enter your message..."
+                  value={messageText}
+                  onChange={e => setMessageText(e.target.value)}
+                ></textarea>
               </div>
               <div className="modal-footer">
-                <button className="btn btn-secondary" onClick={() => setShowAddModal(false)}>Cancel</button>
-                <button className="btn btn-primary" onClick={handleSearchByCompany}>Search</button>
+                <button className="btn btn-secondary" onClick={() => setShowSendModal(false)}>Cancel</button>
+                <button className="btn btn-primary" onClick={handleSendMessage}>Send</button>
               </div>
             </div>
           </div>
         </div>
       )}
-
-      {/* Backdrop */}
-      {showAddModal && <div className="modal-backdrop fade show"></div>}
+      {showSendModal && <div className="modal-backdrop fade show"></div>}
     </div>
   );
 }

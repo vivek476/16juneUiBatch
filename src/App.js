@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes, Link, useLocation } from 'react-router-dom';
 import Header from './Header';
 import Dashboard from './Dashboard';
-import Sample1 from './Sample1';
 import Footer from './Footer';
 import EmployeeWelcome from './Employee/Welcome';
 import EmployeeMyaccount from './Employee/Myaccount';
@@ -17,6 +16,10 @@ import CompanyAppliedjob from './Company/Appliedjob';
 import AdminEmployeereport from './Admin/Employeereport';
 import AdminCompanyreport from './Admin/Companyreport';
 import AdminFeedbackreport from './Admin/Feedbackreport';
+import Searchjobcategory from './Job Category/Searchjobcategory';
+import  Home  from './Home';
+import Feedback from './Feedback';
+import Contactus from './Contactus';
 
 
 function Sidebar() {
@@ -85,11 +88,10 @@ function Sidebar() {
           <li className="nav-item">
             <Link to="/admin/feedbackreport" className={`nav-link d-flex align-items-center ${location.pathname === "/admin/feedbackreport" ? "active" : "text-light"}`}><i className="bi bi-chat-dots-fill me-2 text-danger"></i> Feedback Report</Link>
           </li>
-          <br />
-          <li className="nav-item">
-            <Link to="/sample1" className={`nav-link d-flex align-items-center ${location.pathname === "/sample1" ? "active" : "text-light"}`}><i className="bi bi-file-earmark-text me-2 text-primary"></i> Sample 1</Link>
-          </li>
         </ul>
+        <br />
+        <br />
+        <Searchjobcategory />
       </div>
     </div>
   );
@@ -103,6 +105,7 @@ function App() {
         <Sidebar />
         <div className="flex-grow-1 p-4">
           <Routes>
+            <Route path="/header" element={<Header />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/employee/welcome" element={<EmployeeWelcome />} />
             <Route path="/employee/myaccount" element={<EmployeeMyaccount />} />
@@ -111,7 +114,6 @@ function App() {
             <Route path="/employee/myinbox" element={<EmployeeMyinbox />} />
             <Route path="/employee/changepassword" element={<EmployeeChangepassword />} />
             <Route path="/employee/logout" element={<EmployeeLogout />} />
-            <Route path="/sample1" element={<Sample1 />} />
             <Route path="/company/postnewjob" element={<CompanyPostnewjob />} />
             <Route path="/company/myaccount" element={<CompanyMyaccount />} />
             <Route path="/company/profilematch" element={<CompanyProfilematch />} />
@@ -119,6 +121,10 @@ function App() {
             <Route path="/admin/employeereport" element={<AdminEmployeereport />} />
             <Route path="/admin/companyreport" element={<AdminCompanyreport />} />
             <Route path="/admin/feedbackreport" element={<AdminFeedbackreport />} />
+            <Route path="/searchjobcategory" element={<Searchjobcategory />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/feedback" element={<Feedback />} />
+            <Route path="/contactus" element={<Contactus />} />
           </Routes>
         </div>
       </div>

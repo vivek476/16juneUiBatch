@@ -17,13 +17,13 @@ function Header() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link" to="/sample1">Sample 1</Link>
+                <Link className="nav-link" to="/home">Home</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/sample2">Sample 2</Link>
+                <Link className="nav-link" to="/feedback">FeedBack</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/sample3">Sample 3</Link>
+                <Link className="nav-link" to="/contactus">Contact Us</Link>
               </li>
             </ul>
             <div className="d-flex">
