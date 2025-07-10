@@ -28,8 +28,8 @@ function Sidebar() {
   return (
     <div className="navbar navbar-expand-lg bg-dark custom-navbar" style={{ width: "250px" }}>
       <div className="p-3">
-        <h4 className="mb-4">
-          <i className="bi bi-grid-fill me-2"></i>
+        <h4 className="mb-4 text-light">
+          <i className="bi bi-grid-fill me-2 text-light"></i> 
           Navigation
         </h4>
         <ul className="nav nav-pills flex-column gap-2">
@@ -37,7 +37,7 @@ function Sidebar() {
             <Link to="/dashboard" className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"}`}><i className="bi bi-speedometer2 me-2 text-primary"></i> Dashboard<span className="badge bg-primary ms-auto">New</span></Link>
           </li>
           <li className="nav-item">
-            <Link to="/employee/welcome" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/welcome" ? "active" : "text-light"}`}><i className="bi bi-emoji-smile me-2 text-warning"></i> Welcome<span className="badge bg-success ms-auto">Hot</span></Link>
+            <Link to="/employee/welcome" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/welcome" ? "active" : "text-light"}`}><i className="bi bi-emoji-smile me-2 text-warning"></i> Welcome</Link>
           </li>
           <li className="nav-item">
             <Link to="/employee/myaccount" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/myaccount" ? "active" : "text-light"}`}><i className="bi bi-person-fill me-2 text-primary"></i> My Account</Link>
@@ -105,6 +105,7 @@ function App() {
         <Sidebar />
         <div className="flex-grow-1 p-4">
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/header" element={<Header />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/employee/welcome" element={<EmployeeWelcome />} />
