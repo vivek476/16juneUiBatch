@@ -1,10 +1,97 @@
 import { useState } from "react";
 
 function Jobmatches() {
-    const [countries,] = useState([
-        { id: 1, company: "Tech Solutions", jobtitle: "React Developer", degree: "MCA", skill: "React.js", experience: "2 Years", salary: "50000" },
+    const [countries, setCountries] = useState([
+        {
+            id: 1,
+            company: "Tech Solutions",
+            jobtitle: "React Developer",
+            address: "123 Tech Park",
+            city: "Bangalore",
+            pincode: "560001",
+            contactPerson: "John Doe",
+            mobile: "9876543210",
+            degree: "MCA",
+            skill: "React.js",
+            experience: "2 Years",
+            salary: "50000",
+            vacancy: "5",
+            details: "Looking for experienced React developer.",
+            applied: false
+        },
+        {
+            id: 2,
+            company: "Infotech",
+            jobtitle: ".NET Core Developer",
+            address: "12 IT Park",
+            city: "Indore",
+            pincode: "452001",
+            contactPerson: "Rahul Jain",
+            mobile: "9856321470",
+            degree: "B.Tech",
+            skill: "ASP.NET Core",
+            experience: "8 Years",
+            salary: "200000",
+            vacancy: "3",
+            details: "Looking for experienced ASP.NET Core Developer.",
+            applied: false
+        },
+        {
+            id: 3,
+            company: "DataBridge Systems",
+            jobtitle: "SQL/Database Administrator",
+            address: "45 Cyber Tower",
+            city: "Hyderabad",
+            pincode: "500081",
+            contactPerson: "Srinivas Rao",
+            mobile: "9345678901",
+            degree: "B.Tech",
+            skill: "SQL, Database Design",
+            experience: "5 Years",
+            salary: "100000",
+            vacancy: "1",
+            details: "Database admin required for managing production servers.",
+            applied: false
+        },
+        {
+            id: 4,
+            company: "Innovate Softwares",
+            jobtitle: "Node.js Developer",
+            address: "Plot 56, Phase 2",
+            city: "Noida",
+            pincode: "201301",
+            contactPerson: "Megha Kapoor",
+            mobile: "9123456789",
+            degree: "M.Tech",
+            skill: "Angular, REST API",
+            experience: "4 Years",
+            salary: "120000",
+            vacancy: "4",
+            details: "Urgent hiring for Angular Developer with REST API integration experience.",
+            applied: false
+        },
+        {
+            id: 5,
+            company: "CloudNine Pvt Ltd",
+            jobtitle: "Node.js Backend Developer",
+            address: "88 Cloud Avenue",
+            city: "Pune",
+            pincode: "411057",
+            contactPerson: "Siddharth Malhotra",
+            mobile: "9988776655",
+            degree: "BCA",
+            skill: "Node.js, Express",
+            experience: "2 Years",
+            salary: "70000",
+            vacancy: "2",
+            details: "Backend developer needed for scalable API development.",
+            applied: false
+        }
     ]);
 
+    const [selectedCompany, setSelectedCompany] = useState("");
+    const [message, setMessage] = useState("");
+    const [messageSent, setMessageSent] = useState(false);
     const [viewData, setViewData] = useState(null);
     const [showViewModal, setShowViewModal] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
@@ -117,32 +204,162 @@ function Jobmatches() {
                 </tbody>
             </table>
 
+            <div
+                className="card p-3 mt-4 shadow-sm mx-auto"
+                style={{ background: "#f7fdff", maxWidth: "600px", fontSize: "0.9rem" }}
+            >
+                <h5 className="mb-3">
+                    <i className="bi bi-chat-dots me-2 text-primary fs-3"></i>
+                    <span className="fw-bold">Send Message to Company</span>
+                </h5>
+
+                <div className="mb-3">
+                    <label className="form-label fw-semibold">Select Company</label>
+                    <select
+                        className="form-select form-select-sm"
+                        value={selectedCompany}
+                        onChange={(e) => setSelectedCompany(e.target.value)}
+                    >
+                        <option value="">-- Select --</option>
+                        {countries.map(c => (
+                            <option key={c.id} value={c.company}>{c.company}</option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label fw-semibold">Your Message</label>
+                    <textarea
+                        className="form-control form-control-sm"
+                        rows={3}
+                        placeholder="Type your message..."
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                    />
+                </div>
+
+                <button
+                    className="btn btn-success btn-sm px-3"
+                    onClick={() => {
+                        if (selectedCompany && message.trim()) {
+                            alert(`Message sent to ${selectedCompany}`);
+                            setMessageSent(true);
+                            setMessage("");
+                            setSelectedCompany("");
+                        } else {
+                            alert("Please select a company and enter your message.");
+                        }
+                    }}
+                >
+                    Send Message
+                </button>
+
+                {messageSent && (
+                    <div className="alert alert-success mt-3" role="alert">
+                        Message sent successfully!
+                    </div>
+                )}
+            </div>
+            <br />
+
             {showViewModal && viewData && (
                 <div className="modal fade show" style={{ display: "block" }} tabIndex="-1">
-                    <div className="modal-dialog">
+                    <div className="modal-dialog modal-lg">
                         <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Company Details</h5>
+                            <div className="modal-header" style={{ background: "#89cff0" }}>
+                                <h5 className="modal-title text-bold">Job Details</h5>
                                 <button type="button" className="btn-close" onClick={() => setShowViewModal(false)}></button>
                             </div>
-                            <div className="modal-body">
-                                <p><strong>Company:</strong> {viewData.company}</p>
-                                <p><strong>Job Title:</strong> {viewData.jobtitle}</p>
-                                <p><strong>Degree:</strong> {viewData.degree}</p>
-                                <p><strong>Skill:</strong> {viewData.skill}</p>
-                                <p><strong>Experience:</strong> {viewData.experience}</p>
-                                <p><strong>Salary:</strong> ₹{viewData.salary}</p>
+                            <div className="modal-body" style={{ background: "#f7fdff" }}>
+                                <div className="container">
+                                    <div className="row gy-3">
+                                        <div className="col-md-6">
+                                            <label className="fw-semibold text-dark">Company Name</label>
+                                            <div className="ps-2 text-dark">{viewData.company}</div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="fw-semibold text-dark">Job Title</label>
+                                            <div className="ps-2 text-dark">{viewData.jobtitle}</div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="fw-semibold text-dark">Address</label>
+                                            <div className="ps-2 text-dark">{viewData.address}</div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="fw-semibold text-dark">City</label>
+                                            <div className="ps-2 text-dark">{viewData.city}</div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="fw-semibold text-dark">Pincode</label>
+                                            <div className="ps-2 text-dark">{viewData.pincode}</div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="fw-semibold text-dark">Contact Person</label>
+                                            <div className="ps-2 text-dark">{viewData.contactPerson}</div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="fw-semibold text-dark">Mobile No.</label>
+                                            <div className="ps-2 text-dark">{viewData.mobile}</div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="fw-semibold text-dark">Degree</label>
+                                            <div className="ps-2 text-dark">{viewData.degree}</div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="fw-semibold text-dark">Skill</label>
+                                            <div className="ps-2 text-dark">{viewData.skill}</div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="fw-semibold text-dark">Experience</label>
+                                            <div className="ps-2 text-dark">{viewData.experience}</div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="fw-semibold text-dark">Salary</label>
+                                            <div className="ps-2 text-dark">₹{viewData.salary}</div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="fw-semibold text-dark">No. of Vacancies</label>
+                                            <div className="ps-2 text-dark">{viewData.vacancy}</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-4" style={{ background: "#f7fdff" }}>
+                                        <label className="fw-semibold text-dark">Job Description</label>
+                                        <div className="ps-2 text-dark">{viewData.details}</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="modal-footer">
-                                <button className="btn btn-secondary" onClick={() => setShowViewModal(false)}>Close</button>
+
+                            <div className="modal-footer" style={{ background: "#f7fdff" }}>
+                                {!viewData.applied ? (
+                                    <button
+                                        className="btn btn-success"
+                                        onClick={() => {
+                                            alert("Applied Successfully");
+                                            setCountries(prev =>
+                                                prev.map(job =>
+                                                    job.id === viewData.id ? { ...job, applied: true } : job
+                                                )
+                                            );
+                                            setViewData({ ...viewData, applied: true });
+                                        }}
+                                    >
+                                        Apply
+                                    </button>
+                                ) : (
+                                    <button className="btn btn-secondary" disabled>Applied</button>
+                                )}
+                                <button className="btn btn-danger" onClick={() => setShowViewModal(false)}>Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* Backdrop */}
-            {showViewModal && <div className="modal-backdrop fade show" onClick={() => setShowViewModal(false)}></div>}
+            {showViewModal && (
+                <div className="modal-backdrop fade show" onClick={() => setShowViewModal(false)}></div>
+            )}
+
 
 
             <nav>
