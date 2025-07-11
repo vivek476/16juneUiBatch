@@ -122,7 +122,7 @@ function Dashboard() {
                   <tr>
                     <th>ID</th>
                     <th>Company Name</th>
-                    <th>job Title</th>
+                    <th>Job Title</th>
                     <th>Experience</th>
                     <th>Vacancy</th>
                     <th>Degree</th>
@@ -280,7 +280,7 @@ function Dashboard() {
         >
           <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
-              <div className="modal-header bg-warning">
+              <div className="modal-header bg-danger">
                 <h5 className="modal-title">Login Required</h5>
                 <button
                   type="button"

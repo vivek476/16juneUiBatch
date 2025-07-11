@@ -8,7 +8,7 @@ function Logout() {
     sessionStorage.clear();
 
     alert("You have been logged out!");
-    navigate("/dashboard");
+    navigate("/home");
   };
 
   return (

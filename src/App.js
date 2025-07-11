@@ -32,10 +32,14 @@ function Sidebar() {
           <i className="bi bi-grid-fill me-2 text-light"></i> 
           Navigation
         </h4>
+        <hr className="border-secondary my-3" /> 
         <ul className="nav nav-pills flex-column gap-2">
           <li className="nav-item">
             <Link to="/dashboard" className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"}`}><i className="bi bi-speedometer2 me-2 text-primary"></i> Dashboard<span className="badge bg-primary ms-auto">New</span></Link>
           </li>
+          <br />
+          <Searchjobcategory />
+          <hr className="border-secondary my-3" /> 
           <li className="nav-item">
             <Link to="/employee/welcome" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/welcome" ? "active" : "text-light"}`}><i className="bi bi-emoji-smile me-2 text-warning"></i> Welcome</Link>
           </li>
@@ -59,6 +63,7 @@ function Sidebar() {
           </li>
         </ul>
         <br />
+        <hr className="border-secondary my-3" /> 
         <br />
         {/* <h3 className="text-center text-light">Company Portal</h3> */}
         <ul className="nav nav-pills flex-column gap-2">
@@ -76,6 +81,7 @@ function Sidebar() {
           </li>
         </ul>
         <br />
+        <hr className="border-secondary my-3" /> 
         <br />
         {/* <h3 className="text-center text-light">Admin Portal</h3> */}
         <ul className="nav nav-pills flex-column gap-2">
@@ -90,8 +96,6 @@ function Sidebar() {
           </li>
         </ul>
         <br />
-        <br />
-        <Searchjobcategory />
       </div>
     </div>
   );
