@@ -12,21 +12,34 @@ function Userroles() {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(3);
 
-    const handleAddUserRole = () => {
-        if (
-            newuserId.trim() !== "" &&
-            newroleId.trim() !== ""
-        ) {
-            const newId = userroles.length + 1;
-            const neweserrole = {
-                id: newId,
+    const handleAddUserRole = async () => {
+        if (newuserId.trim() !== "" && newroleId.trim() !== "") {
+            const payload = {
                 userId: newuserId,
                 roleId: newroleId,
             };
-            setUserRoles([...userroles, neweserrole]);
-            setNewUserId("");
-            setNewRoleId("");
-            setShowAddModal(false);
+
+            try {
+                const res = await axios.post("http://localhost:5269/api/UserRoles", payload);
+
+                if (res.data.status === "201" || res.status === 201) {
+                    // Refetch the latest user roles from the DB
+                    const updatedRes = await axios.get("http://localhost:5269/api/UserRoles");
+                    setUserRoles(updatedRes.data.data || updatedRes.data); // Ensure .data exists
+
+                    // Clear form
+                    setNewUserId("");
+                    setNewRoleId("");
+                    setShowAddModal(false);
+                } else {
+                    alert("Failed to assign role. Try again.");
+                }
+            } catch (error) {
+                console.error("Error assigning user role:", error);
+                alert("Error assigning user role: " + (error.response?.data || error.message));
+            }
+        } else {
+            alert("Please fill in all fields.");
         }
     };
 

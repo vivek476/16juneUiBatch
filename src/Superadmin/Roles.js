@@ -11,14 +11,34 @@ function Roles() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(3);
 
-  const handleAddCountry = () => {
+  const handleAddCountry = async () => {
     if (newCountry.trim() !== "") {
-      const newId = roles.length + 1;
-      setRoles([...roles, { id: newId, name: newCountry }]);
-      setNewCountry("");
-      setShowAddModal(false);
+      const payload = {
+        name: newCountry
+      };
+
+      try {
+        const res = await axios.post("http://localhost:5269/api/Roles", payload);
+
+        if (res.data.status === "201" || res.status === 201) {
+          // ✅ Successfully added, now fetch updated list from database
+          const updatedRes = await axios.get("http://localhost:5269/api/Roles");
+          setRoles(updatedRes.data.data || updatedRes.data);
+
+          setNewCountry("");
+          setShowAddModal(false);
+        } else {
+          alert("Failed to add role. Try again.");
+        }
+      } catch (err) {
+        console.error("Error adding role:", err);
+        alert("Error: " + (err.response?.data || err.message));
+      }
+    } else {
+      alert("Role name cannot be empty.");
     }
   };
+
 
   const handleDownload = () => {
     const csv = roles.map(c => c.name).join("\n");
@@ -52,8 +72,10 @@ function Roles() {
       <button className="btn btn-primary mb-3" onClick={() => setShowAddModal(true)}>Add Role</button>
       <div className="row g-2 mb-3 align-items-center">
         <div className="col-md-4">
-          <input type="text" className="form-control" placeholder="Search..." value={searchTerm} onChange={e => { setSearchTerm(e.target.value);
-              setCurrentPage(1); }}
+          <input type="text" className="form-control" placeholder="Search..." value={searchTerm} onChange={e => {
+            setSearchTerm(e.target.value);
+            setCurrentPage(1);
+          }}
           />
         </div>
         <div className="col-md-4">
@@ -62,7 +84,8 @@ function Roles() {
         <div className="col-md-4 text-md-end">
           <label className="form-label me-2 mb-0">Items per page:</label>
           <select className="form-select d-inline-block w-auto" value={pageSize} onChange={e => {
-              setPageSize(parseInt(e.target.value)); setCurrentPage(1); }}>
+            setPageSize(parseInt(e.target.value)); setCurrentPage(1);
+          }}>
             <option value={3}>3</option>
             <option value={5}>5</option>
             <option value={10}>10</option>
@@ -95,7 +118,7 @@ function Roles() {
       <nav>
         <ul className="pagination justify-content-center">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-            <li key={page} className={`page-item ${ currentPage === page ? "active" : "" }`}>
+            <li key={page} className={`page-item ${currentPage === page ? "active" : ""}`}>
               <button className="page-link" onClick={() => setCurrentPage(page)}>{page}</button>
             </li>
           ))}
