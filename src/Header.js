@@ -96,6 +96,10 @@ function Header() {
                     <input type="text" className="form-control" placeholder="Your Name" />
                   </div>
                   <div className="mb-3">
+                    <label className="form-label">Mobile</label>
+                    <input type="mobile" className="form-control" placeholder="9876543210" />
+                  </div>
+                  <div className="mb-3">
                     <label className="form-label">Email</label>
                     <input type="email" className="form-control" placeholder="name@example.com" />
                   </div>

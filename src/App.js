@@ -20,6 +20,7 @@ import Searchjobcategory from './Job Category/Searchjobcategory';
 import  Home  from './Home';
 import Feedback from './Feedback';
 import Contactus from './Contactus';
+import Roles from './Superadmin/Roles';
 
 
 function Sidebar() {
@@ -96,6 +97,9 @@ function Sidebar() {
           </li>
         </ul>
         <br />
+        <li className="nav-item">
+            <Link to="/superadmin/roles" className={`nav-link d-flex align-items-center ${location.pathname === "/superadmin/roles" ? "active" : "text-light"}`}><i className="bi bi-chat-dots-fill me-2 text-danger"></i> Roles</Link>
+        </li>
       </div>
     </div>
   );
@@ -130,6 +134,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/contactus" element={<Contactus />} />
+            <Route path="/superadmin/roles" element={<Roles />} />
           </Routes>
         </div>
       </div>
