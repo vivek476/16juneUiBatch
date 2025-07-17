@@ -1,10 +1,56 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { FaUser, FaSignInAlt, FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function Header() {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
+
+  const [signupName, setSignupName] = useState("");
+  const [signupMobile, setSignupMobile] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
+
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      fullName: signupName,
+      mobile: signupMobile,
+      email: signupEmail,
+      password: signupPassword
+    };
+
+    try {
+      const res = await axios.post("http://localhost:5269/api/Users/signup", payload);
+
+      if (res.data.status === "201") {
+        Swal.fire({
+          icon: 'success',
+          title: `Welcome, ${signupName}!`,
+          text: 'Signup successful!',
+          confirmButtonColor: '#3085d6',
+        });
+
+
+        setShowSignup(false);
+        setSignupName("");
+        setSignupMobile("");
+        setSignupEmail("");
+        setSignupPassword("");
+      } else {
+        alert("Signup failed. Try again.");
+      }
+    } catch (err) {
+      console.error("Signup error:", err);
+      alert("Signup failed: " + (err.response?.data || err.message));
+    }
+  };
+
+
 
   return (
     <>
@@ -90,22 +136,22 @@ function Header() {
                 <button type="button" className="btn-close" onClick={() => setShowSignup(false)}></button>
               </div>
               <div className="modal-body">
-                <form>
+                <form onSubmit={handleSignup}>
                   <div className="mb-3">
                     <label className="form-label">Full Name</label>
-                    <input type="text" className="form-control" placeholder="Your Name" />
+                    <input type="text" className="form-control" placeholder="Your Full Name" value={signupName} onChange={(e) => setSignupName(e.target.value)} />
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Mobile</label>
-                    <input type="mobile" className="form-control" placeholder="9876543210" />
+                    <input type="text" className="form-control" placeholder="Enter Mobile Number" value={signupMobile} onChange={(e) => setSignupMobile(e.target.value)} />
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Email</label>
-                    <input type="email" className="form-control" placeholder="name@example.com" />
+                    <input type="email" className="form-control" placeholder="Enter Your Email Address" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Password</label>
-                    <input type="password" className="form-control" placeholder="Choose a password" />
+                    <input type="password" className="form-control" placeholder="Choose Strong Password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
                   </div>
                   <button type="submit" className="btn btn-primary w-100 mb-3">Create Account</button>
                   <div className="d-flex justify-content-center gap-2">

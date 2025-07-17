@@ -17,10 +17,12 @@ import AdminEmployeereport from './Admin/Employeereport';
 import AdminCompanyreport from './Admin/Companyreport';
 import AdminFeedbackreport from './Admin/Feedbackreport';
 import Searchjobcategory from './Job Category/Searchjobcategory';
-import  Home  from './Home';
+import Home from './Home';
 import Feedback from './Feedback';
 import Contactus from './Contactus';
 import Roles from './Superadmin/Roles';
+import Users from './Superadmin/Users';
+import Userroles from './Superadmin/Userroles';
 
 
 function Sidebar() {
@@ -30,17 +32,17 @@ function Sidebar() {
     <div className="navbar navbar-expand-lg bg-dark custom-navbar" style={{ width: "250px" }}>
       <div className="p-3">
         <h4 className="mb-4 text-light">
-          <i className="bi bi-grid-fill me-2 text-light"></i> 
+          <i className="bi bi-grid-fill me-2 text-light"></i>
           Navigation
         </h4>
-        <hr className="border-secondary my-3" /> 
+        <hr className="border-secondary my-3" />
         <ul className="nav nav-pills flex-column gap-2">
           <li className="nav-item">
             <Link to="/dashboard" className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"}`}><i className="bi bi-speedometer2 me-2 text-primary"></i> Dashboard<span className="badge bg-primary ms-auto">New</span></Link>
           </li>
           <br />
           <Searchjobcategory />
-          <hr className="border-secondary my-3" /> 
+          <hr className="border-secondary my-3" />
           <li className="nav-item">
             <Link to="/employee/welcome" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/welcome" ? "active" : "text-light"}`}><i className="bi bi-emoji-smile me-2 text-warning"></i> Welcome</Link>
           </li>
@@ -64,7 +66,7 @@ function Sidebar() {
           </li>
         </ul>
         <br />
-        <hr className="border-secondary my-3" /> 
+        <hr className="border-secondary my-3" />
         <br />
         {/* <h3 className="text-center text-light">Company Portal</h3> */}
         <ul className="nav nav-pills flex-column gap-2">
@@ -82,7 +84,7 @@ function Sidebar() {
           </li>
         </ul>
         <br />
-        <hr className="border-secondary my-3" /> 
+        <hr className="border-secondary my-3" />
         <br />
         {/* <h3 className="text-center text-light">Admin Portal</h3> */}
         <ul className="nav nav-pills flex-column gap-2">
@@ -97,9 +99,19 @@ function Sidebar() {
           </li>
         </ul>
         <br />
-        <li className="nav-item">
-            <Link to="/superadmin/roles" className={`nav-link d-flex align-items-center ${location.pathname === "/superadmin/roles" ? "active" : "text-light"}`}><i className="bi bi-chat-dots-fill me-2 text-danger"></i> Roles</Link>
-        </li>
+         <hr className="border-secondary my-3" />
+         <br />
+        <ul className="nav nav-pills flex-column gap-2">
+          <li className="nav-item">
+            <Link to="/superadmin/roles" className={`nav-link d-flex align-items-center ${location.pathname === "/superadmin/roles" ? "active" : "text-light"}`}><i className="bi bi-person-workspace me-2 text-primary"></i> Roles</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/superadmin/users" className={`nav-link d-flex align-items-center ${location.pathname === "/superadmin/users" ? "active" : "text-light"}`}><i className="bi bi-person-fill-check me-2 text-success"></i> Users</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/superadmin/userroles" className={`nav-link d-flex align-items-center ${location.pathname === "/superadmin/userroles" ? "active" : "text-light"}`}><i className="bi bi-person-vcard me-2 text-warning"></i> User Roles</Link>
+          </li>
+        </ul>
       </div>
     </div>
   );
@@ -135,6 +147,8 @@ function App() {
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/contactus" element={<Contactus />} />
             <Route path="/superadmin/roles" element={<Roles />} />
+            <Route path="/superadmin/users" element={<Users />} />
+            <Route path="/superadmin/userroles" element={<Userroles />} />
           </Routes>
         </div>
       </div>
