@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { FaUser, FaSignInAlt, FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -7,16 +7,16 @@ import Swal from 'sweetalert2';
 function Header() {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
   const [signupName, setSignupName] = useState("");
   const [signupMobile, setSignupMobile] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
-
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
     const payload = {
       fullName: signupName,
       mobile: signupMobile,
@@ -35,7 +35,6 @@ function Header() {
           confirmButtonColor: '#3085d6',
         });
 
-
         setShowSignup(false);
         setSignupName("");
         setSignupMobile("");
@@ -50,7 +49,71 @@ function Header() {
     }
   };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const payload = {
+      email: signupEmail,
+      password: signupPassword
+    };
 
+    try {
+      const res = await axios.post("http://localhost:5269/api/Users/login", payload);
+      const { token, user, role, status } = res.data;
+
+      if (status === "200") {
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", user.fullName);
+        localStorage.setItem("role", role.name);
+
+        setIsLoggedIn(true); // ✅ update state
+
+        Swal.fire({
+          icon: 'success',
+          title: `Welcome, ${user.fullName}!`,
+          text: 'Login successful!',
+          confirmButtonColor: '#3085d6',
+          timer: 1500,
+          showConfirmButton: false
+        });
+
+        setShowLogin(false);
+        setSignupEmail("");
+        setSignupPassword("");
+
+        // Navigate based on role
+        if (role.name === "Admin") {
+          navigate("/admin/employeereport");
+        } else if (role.name === "Employee") {
+          navigate("/employee/welcome");
+        } else if (role.name === "Company") {
+          navigate("/company/postnewjob");
+        } else {
+          navigate("/");
+        }
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: 'Invalid credentials or user not found.'
+        });
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Error',
+        text: err.response?.data || 'Something went wrong. Please try again.'
+      });
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("role");
+    setIsLoggedIn(false); // ✅ update state
+    navigate("/");
+  };
 
   return (
     <>
@@ -73,12 +136,20 @@ function Header() {
               </li>
             </ul>
             <div className="d-flex">
-              <button className="btn btn-outline-light me-2" onClick={() => setShowSignup(true)}>
-                <FaUser className="me-1" /> Sign Up
-              </button>
-              <button className="btn btn-success" onClick={() => setShowLogin(true)}>
-                <FaSignInAlt className="me-1" /> Login
-              </button>
+              {!isLoggedIn ? (
+                <>
+                  <button className="btn btn-outline-light me-2" onClick={() => setShowSignup(true)}>
+                    <FaUser className="me-1" /> Sign Up
+                  </button>
+                  <button className="btn btn-success" onClick={() => setShowLogin(true)}>
+                    <FaSignInAlt className="me-1" /> Login
+                  </button>
+                </>
+              ) : (
+                <button className="btn btn-danger btn-lg" onClick={handleLogout}>
+                  <i className="bi bi-box-arrow-right me-2"></i> Logout
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -94,26 +165,20 @@ function Header() {
                 <button type="button" className="btn-close" onClick={() => setShowLogin(false)}></button>
               </div>
               <div className="modal-body">
-                <form>
+                <form onSubmit={handleLogin}>
                   <div className="mb-3">
                     <label className="form-label">Email</label>
-                    <input type="email" className="form-control" placeholder="Enter email" />
+                    <input type="email" className="form-control" placeholder="Enter Your Email Address" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" />
+                    <input type="password" className="form-control" placeholder="Choose Strong Password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
                   </div>
                   <button type="submit" className="btn btn-primary w-100 mb-3">Login</button>
                   <div className="d-flex justify-content-center gap-2">
-                    <button className="btn btn-outline-danger btn-sm">
-                      <FaGoogle />
-                    </button>
-                    <button className="btn btn-outline-primary btn-sm">
-                      <FaFacebookF />
-                    </button>
-                    <button className="btn btn-outline-info btn-sm">
-                      <FaTwitter />
-                    </button>
+                    <button className="btn btn-outline-danger btn-sm"><FaGoogle /></button>
+                    <button className="btn btn-outline-primary btn-sm"><FaFacebookF /></button>
+                    <button className="btn btn-outline-info btn-sm"><FaTwitter /></button>
                   </div>
                   <p className="text-center mt-3 mb-0">
                     No account?{" "}
@@ -155,15 +220,9 @@ function Header() {
                   </div>
                   <button type="submit" className="btn btn-primary w-100 mb-3">Create Account</button>
                   <div className="d-flex justify-content-center gap-2">
-                    <button className="btn btn-outline-danger btn-sm">
-                      <FaGoogle />
-                    </button>
-                    <button className="btn btn-outline-primary btn-sm">
-                      <FaFacebookF />
-                    </button>
-                    <button className="btn btn-outline-info btn-sm">
-                      <FaTwitter />
-                    </button>
+                    <button className="btn btn-outline-danger btn-sm"><FaGoogle /></button>
+                    <button className="btn btn-outline-primary btn-sm"><FaFacebookF /></button>
+                    <button className="btn btn-outline-info btn-sm"><FaTwitter /></button>
                   </div>
                   <p className="text-center mt-3 mb-0">
                     Already have an account?{" "}
