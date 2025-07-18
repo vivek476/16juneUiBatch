@@ -16,7 +16,7 @@ function Header() {
   const [signupPassword, setSignupPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSignup = async (e) => {
+  {/* const handleSignup = async (e) => {
     e.preventDefault();
     const payload = {
       fullName: signupName,
@@ -48,7 +48,7 @@ function Header() {
       console.error("Signup error:", err);
       alert("Signup failed: " + (err.response?.data || err.message));
     }
-  };
+  }; */ }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -154,9 +154,9 @@ function Header() {
             <div className="d-flex align-items-center gap-2">
               {!isLoggedIn ? (
                 <>
-                  <button className="btn btn-outline-light me-2" onClick={() => setShowSignup(true)}>
+                  {/* <button className="btn btn-outline-light me-2" onClick={() => setShowSignup(true)}>
                     <FaUser className="me-1" /> Sign Up
-                  </button>
+                  </button> */}
                   <button className="btn btn-success" onClick={() => setShowLogin(true)}>
                     <FaSignInAlt className="me-1" /> Login
                   </button>
@@ -210,7 +210,7 @@ function Header() {
       )}
 
       {/* Signup Modal */}
-      {showSignup && (
+      {/* {showSignup && (
         <div className="modal d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0,0,0,0.7)' }} onClick={() => setShowSignup(false)}>
           <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: "400px" }} onClick={(e) => e.stopPropagation()}>
             <div className="modal-content shadow rounded-3">
@@ -250,7 +250,7 @@ function Header() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 }
