@@ -37,25 +37,16 @@ function Sidebar() {
 
 
   return (
-    <div className="navbar navbar-expand-lg bg-dark custom-navbar" style={{ width: "250px" }}>
+    <div className="navbar navbar-expand-lg bg-dark custom-navbar d-flex flex-column align-items-start" style={{ width: "250px", height: "100vh" }}>
+
       <div className="p-3">
         {!localStorage.getItem("token") && (
           <>
-            <h4 className="mb-4 text-light">
-              <i className="bi bi-grid-fill me-2 text-light"></i>
-              Navigation
-            </h4>
+            <h4 className="mb-4 text-light"><i className="bi bi-grid-fill me-2 text-light"></i>Navigation</h4>
             <hr className="border-secondary my-3" />
             <ul className="nav nav-pills flex-column gap-2">
               <li className="nav-item">
-                <Link
-                  to="/dashboard"
-                  className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"
-                    }`}
-                >
-                  <i className="bi bi-speedometer2 me-2 text-primary"></i> Dashboard
-                  <span className="badge bg-primary ms-auto">New</span>
-                </Link>
+                <Link to="/dashboard" className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"}`}><i className="bi bi-speedometer2 me-2 text-primary"></i> Dashboard<span className="badge bg-primary ms-auto">New</span></Link>
               </li>
             </ul>
             <br />
@@ -188,41 +179,46 @@ function Sidebar() {
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <div className="d-flex">
-        <Sidebar />
-        <div className="flex-grow-1 p-4">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/header" element={<Header />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/employee/welcome" element={<EmployeeWelcome />} />
-            <Route path="/employee/myaccount" element={<EmployeeMyaccount />} />
-            <Route path="/employee/jobmatches" element={<EmployeeJobmatches />} />
-            <Route path="/employee/myappliedjob" element={<EmployeeMyappliedjob />} />
-            <Route path="/employee/myinbox" element={<EmployeeMyinbox />} />
-            <Route path="/employee/changepassword" element={<EmployeeChangepassword />} />
-            <Route path="/employee/logout" element={<EmployeeLogout />} />
-            <Route path="/company/postnewjob" element={<CompanyPostnewjob />} />
-            <Route path="/company/myaccount" element={<CompanyMyaccount />} />
-            <Route path="/company/profilematch" element={<CompanyProfilematch />} />
-            <Route path="/company/appliedjob" element={<CompanyAppliedjob />} />
-            <Route path="/admin/employeereport" element={<AdminEmployeereport />} />
-            <Route path="/admin/companyreport" element={<AdminCompanyreport />} />
-            <Route path="/admin/feedbackreport" element={<AdminFeedbackreport />} />
-            <Route path="/searchjobcategory" element={<Searchjobcategory />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/feedback" element={<Feedback />} />
-            <Route path="/contactus" element={<Contactus />} />
-            <Route path="/superadmin/roles" element={<Roles />} />
-            <Route path="/superadmin/users" element={<Users />} />
-            <Route path="/superadmin/userroles" element={<Userroles />} />
-          </Routes>
+      <div className="d-flex flex-column min-vh-100"> {/* Full height layout */}
+        <Header />
+
+        <div className="d-flex flex-grow-1"> {/* Main content row */}
+          <Sidebar />
+          <div className="flex-grow-1 p-4">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/header" element={<Header />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/employee/welcome" element={<EmployeeWelcome />} />
+              <Route path="/employee/myaccount" element={<EmployeeMyaccount />} />
+              <Route path="/employee/jobmatches" element={<EmployeeJobmatches />} />
+              <Route path="/employee/myappliedjob" element={<EmployeeMyappliedjob />} />
+              <Route path="/employee/myinbox" element={<EmployeeMyinbox />} />
+              <Route path="/employee/changepassword" element={<EmployeeChangepassword />} />
+              <Route path="/employee/logout" element={<EmployeeLogout />} />
+              <Route path="/company/postnewjob" element={<CompanyPostnewjob />} />
+              <Route path="/company/myaccount" element={<CompanyMyaccount />} />
+              <Route path="/company/profilematch" element={<CompanyProfilematch />} />
+              <Route path="/company/appliedjob" element={<CompanyAppliedjob />} />
+              <Route path="/admin/employeereport" element={<AdminEmployeereport />} />
+              <Route path="/admin/companyreport" element={<AdminCompanyreport />} />
+              <Route path="/admin/feedbackreport" element={<AdminFeedbackreport />} />
+              <Route path="/searchjobcategory" element={<Searchjobcategory />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/feedback" element={<Feedback />} />
+              <Route path="/contactus" element={<Contactus />} />
+              <Route path="/superadmin/roles" element={<Roles />} />
+              <Route path="/superadmin/users" element={<Users />} />
+              <Route path="/superadmin/userroles" element={<Userroles />} />
+            </Routes>
+          </div>
         </div>
+
+        <Footer /> {/* This will always stay at the bottom */}
       </div>
-      <Footer />
     </BrowserRouter>
   );
 }
+
 
 export default App;

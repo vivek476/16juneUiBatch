@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { FaUser, FaSignInAlt, FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaUser, FaSignInAlt, FaTrash, FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -8,6 +8,7 @@ function Header() {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [userName, setUserName] = useState(localStorage.getItem("user") || "");
 
   const [signupName, setSignupName] = useState("");
   const [signupMobile, setSignupMobile] = useState("");
@@ -65,7 +66,8 @@ function Header() {
         localStorage.setItem("user", user.fullName);
         localStorage.setItem("role", role.name);
 
-        setIsLoggedIn(true); // ✅ update state
+        setUserName(user.fullName);
+        setIsLoggedIn(true);
 
         Swal.fire({
           icon: 'success',
@@ -80,7 +82,6 @@ function Header() {
         setSignupEmail("");
         setSignupPassword("");
 
-        // Navigate based on role
         if (role.name === "Admin") {
           navigate("/admin/employeereport");
         } else if (role.name === "Employee") {
@@ -108,11 +109,32 @@ function Header() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("role");
-    setIsLoggedIn(false); // ✅ update state
-    navigate("/");
+    Swal.fire({
+      title: 'Are you sure you want to logout?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Yes, Logout',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("role");
+        setIsLoggedIn(false);
+        setUserName("");
+        navigate("/");
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Logged Out',
+          text: 'You have been successfully logged out.',
+          timer: 1500,
+          showConfirmButton: false
+        });
+      }
+    });
   };
 
   return (
@@ -125,17 +147,11 @@ function Header() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className="nav-link" to="/home">Home</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/feedback">FeedBack</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/contactus">Contact Us</Link>
-              </li>
+              <li className="nav-item"><Link className="nav-link" to="/home">Home</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/feedback">FeedBack</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/contactus">Contact Us</Link></li>
             </ul>
-            <div className="d-flex">
+            <div className="d-flex align-items-center gap-2">
               {!isLoggedIn ? (
                 <>
                   <button className="btn btn-outline-light me-2" onClick={() => setShowSignup(true)}>
@@ -146,9 +162,12 @@ function Header() {
                   </button>
                 </>
               ) : (
-                <button className="btn btn-danger btn-lg" onClick={handleLogout}>
-                  <i className="bi bi-box-arrow-right me-2"></i> Logout
-                </button>
+                <>
+                  <span className="text-white fw-semibold me-2">✨ {userName}</span>
+                  <button className="btn btn-danger" onClick={handleLogout}>
+                    <FaTrash className="me-1" /> Logout
+                  </button>
+                </>
               )}
             </div>
           </div>
@@ -168,11 +187,11 @@ function Header() {
                 <form onSubmit={handleLogin}>
                   <div className="mb-3">
                     <label className="form-label">Email</label>
-                    <input type="email" className="form-control" placeholder="Enter Your Email Address" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
+                    <input type="email" className="form-control" placeholder="User Id" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Password</label>
-                    <input type="password" className="form-control" placeholder="Choose Strong Password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
+                    <input type="password" className="form-control" placeholder="Password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
                   </div>
                   <button type="submit" className="btn btn-primary w-100 mb-3">Login</button>
                   <div className="d-flex justify-content-center gap-2">
@@ -181,8 +200,7 @@ function Header() {
                     <button className="btn btn-outline-info btn-sm"><FaTwitter /></button>
                   </div>
                   <p className="text-center mt-3 mb-0">
-                    No account?{" "}
-                    <button className="btn btn-link p-0" onClick={() => { setShowLogin(false); setShowSignup(true); }}>Sign Up</button>
+                    No account? <button className="btn btn-link p-0" onClick={() => { setShowLogin(false); setShowSignup(true); }}>Sign Up</button>
                   </p>
                 </form>
               </div>
@@ -204,19 +222,19 @@ function Header() {
                 <form onSubmit={handleSignup}>
                   <div className="mb-3">
                     <label className="form-label">Full Name</label>
-                    <input type="text" className="form-control" placeholder="Your Full Name" value={signupName} onChange={(e) => setSignupName(e.target.value)} />
+                    <input type="text" className="form-control" placeholder="Enter Your Name" value={signupName} onChange={(e) => setSignupName(e.target.value)} />
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Mobile</label>
-                    <input type="text" className="form-control" placeholder="Enter Mobile Number" value={signupMobile} onChange={(e) => setSignupMobile(e.target.value)} />
+                    <input type="text" className="form-control" placeholder="Enter Your Mobile No." value={signupMobile} onChange={(e) => setSignupMobile(e.target.value)} />
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Email</label>
-                    <input type="email" className="form-control" placeholder="Enter Your Email Address" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
+                    <input type="email" className="form-control" placeholder="Enter Your Emali" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Password</label>
-                    <input type="password" className="form-control" placeholder="Choose Strong Password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
+                    <input type="password" className="form-control" placeholder="Enter Your Password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
                   </div>
                   <button type="submit" className="btn btn-primary w-100 mb-3">Create Account</button>
                   <div className="d-flex justify-content-center gap-2">
@@ -225,8 +243,7 @@ function Header() {
                     <button className="btn btn-outline-info btn-sm"><FaTwitter /></button>
                   </div>
                   <p className="text-center mt-3 mb-0">
-                    Already have an account?{" "}
-                    <button className="btn btn-link p-0" onClick={() => { setShowSignup(false); setShowLogin(true); }}>Sign in</button>
+                    Already have an account? <button className="btn btn-link p-0" onClick={() => { setShowSignup(false); setShowLogin(true); }}>Sign in</button>
                   </p>
                 </form>
               </div>

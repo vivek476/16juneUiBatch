@@ -178,15 +178,19 @@ function Users() {
                                     <button type="button" className="btn-close" onClick={() => setShowAddModal(false)}></button>
                                 </div>
                                 <div className="modal-body">
+                                <label className="form-label">Full Name</label>
                                     <input type="text" className="form-control" placeholder="Enter FullName" value={newFullName} onChange={(e) => setNewFullName(e.target.value)} />
                                 </div>
                                 <div className="modal-body">
-                                    <input type="text" className="form-control" placeholder="Enter Mobile" value={newMobile} onChange={(e) => setNewMobile(e.target.value)} />
+                                <label className="form-label">Mobile No.</label>
+                                    <input type="text" className="form-control" placeholder="Enter Mobile No." value={newMobile} onChange={(e) => setNewMobile(e.target.value)} />
                                 </div>
                                 <div className="modal-body">
-                                    <input type="email" className="form-control" placeholder="Enter Email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
+                                <label className="form-label">Email</label>
+                                    <input type="email" className="form-control" placeholder="Enter Email Address" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
                                 </div>
                                 <div className="modal-body">
+                                <label className="form-label">Password</label>
                                     <input type="password" className="form-control" placeholder="Enter Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
                                 </div>
                                 <div className="modal-footer">

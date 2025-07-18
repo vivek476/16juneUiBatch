@@ -161,9 +161,11 @@ function Userroles() {
                                 <button type="button" className="btn-close" onClick={() => setShowAddModal(false)}></button>
                             </div>
                             <div className="modal-body">
+                            <label className="form-label">User ID</label>
                                 <input type="text" className="form-control" placeholder="Enter User Id" value={newuserId} onChange={e => setNewUserId(e.target.value)} />
                             </div>
                             <div className="modal-body">
+                            <label className="form-label">Roll ID</label>
                                 <input type="text" className="form-control" placeholder="Enter Role Id" value={newroleId} onChange={e => setNewRoleId(e.target.value)} />
                             </div>
                             <div className="modal-footer">
