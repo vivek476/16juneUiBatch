@@ -48,6 +48,7 @@ function Sidebar() {
               <li className="nav-item">
                 <Link to="/dashboard" className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"}`}><i className="bi bi-speedometer2 me-2 text-primary"></i> Dashboard<span className="badge bg-primary ms-auto">New</span></Link>
               </li>
+
             </ul>
             <br />
             <Searchjobcategory />
@@ -84,16 +85,7 @@ function Sidebar() {
                   <i className="bi bi-envelope-fill me-2  text-info"></i> My Inbox
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/employee/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/changepassword" ? "active" : "text-light"}`}>
-                  <i className="bi bi-lock-fill me-2 text-warning"></i> Change Password
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/employee/logout" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/logout" ? "active" : "text-danger"}`}>
-                  <i className="bi bi-box-arrow-right me-2 text-danger"></i> Log Out
-                </Link>
-              </li>
+
             </ul>
           </>
         )}
@@ -171,6 +163,13 @@ function Sidebar() {
             </ul>
           </>
         )}
+        <ul className="nav nav-pills flex-column gap-2">
+          <li className="nav-item">
+            <Link to="/employee/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/changepassword" ? "active" : "text-light"}`}>
+              <i className="bi bi-lock-fill me-2 text-warning"></i> Change Password
+            </Link>
+          </li>
+        </ul>
       </div>
     </div>
   );
