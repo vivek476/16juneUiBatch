@@ -44,12 +44,6 @@ function Sidebar() {
           <>
             <h4 className="mb-4 text-light"><i className="bi bi-grid-fill me-2 text-light"></i>Navigation</h4>
             <hr className="border-secondary my-3" />
-            <ul className="nav nav-pills flex-column gap-2">
-              <li className="nav-item">
-                <Link to="/dashboard" className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"}`}><i className="bi bi-speedometer2 me-2 text-primary"></i> Dashboard<span className="badge bg-primary ms-auto">New</span></Link>
-              </li>
-
-            </ul>
             <br />
             <Searchjobcategory />
           </>
@@ -60,6 +54,11 @@ function Sidebar() {
           <>
             <hr className="border-secondary my-3" />
             <ul className="nav nav-pills flex-column gap-2">
+              <li className="nav-item">
+                <Link to="/dashboard" className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"}`}>
+                  <div className="d-flex align-items-center"><i className="bi bi-speedometer2 me-2 text-primary fs-3"></i><span className="me-2">Dashboard</span></div>
+                  <span className="badge bg-primary ms-auto"> New</span></Link>
+              </li>
               <li className="nav-item">
                 <Link to="/employee/welcome" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/welcome" ? "active" : "text-light"}`}>
                   <i className="bi bi-emoji-smile me-2 text-warning"></i> Welcome
@@ -85,6 +84,11 @@ function Sidebar() {
                   <i className="bi bi-envelope-fill me-2  text-info"></i> My Inbox
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to="/employee/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/changepassword" ? "active" : "text-light"}`}>
+                  <i className="bi bi-lock-fill me-2 text-warning"></i> Change Password
+                </Link>
+              </li>
 
             </ul>
           </>
@@ -94,6 +98,11 @@ function Sidebar() {
           <>
             <hr className="border-secondary my-3" />
             <ul className="nav nav-pills flex-column gap-2">
+              <li className="nav-item">
+                <Link to="/dashboard" className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"}`}>
+                  <div className="d-flex align-items-center"><i className="bi bi-speedometer2 me-2 text-primary fs-3"></i><span className="me-2">Dashboard</span></div>
+                  <span className="badge bg-primary ms-auto"> New</span></Link>
+              </li>
               <li className="nav-item">
                 <Link to="/company/postnewjob" className={`nav-link d-flex align-items-center ${location.pathname === "/company/postnewjob" ? "active" : "text-light"}`}>
                   <i className="bi bi-plus-circle me-2 text-warning"></i> Post New Job
@@ -114,6 +123,11 @@ function Sidebar() {
                   <i className="bi bi-check2-square me-2 text-success"></i> Applied Job
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to="/employee/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/changepassword" ? "active" : "text-light"}`}>
+                  <i className="bi bi-lock-fill me-2 text-warning"></i> Change Password
+                </Link>
+              </li>
             </ul>
           </>
         )}
@@ -122,6 +136,11 @@ function Sidebar() {
           <>
             <hr className="border-secondary my-3" />
             <ul className="nav nav-pills flex-column gap-2">
+              <li className="nav-item">
+                <Link to="/dashboard" className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"}`}>
+                  <div className="d-flex align-items-center"><i className="bi bi-speedometer2 me-2 text-primary fs-3"></i><span className="me-2">Dashboard</span></div>
+                  <span className="badge bg-primary ms-auto"> New</span></Link>
+              </li>
               <li className="nav-item">
                 <Link to="/admin/employeereport" className={`nav-link d-flex align-items-center ${location.pathname === "/admin/employeereport" ? "active" : "text-light"}`}>
                   <i className="bi bi-clipboard-check me-2 text-warning"></i> Employee Report
@@ -137,6 +156,11 @@ function Sidebar() {
                   <i className="bi bi-chat-dots-fill me-2 text-danger"></i> Feedback Report
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to="/employee/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/changepassword" ? "active" : "text-light"}`}>
+                  <i className="bi bi-lock-fill me-2 text-warning"></i> Change Password
+                </Link>
+              </li>
             </ul>
           </>
         )}
@@ -145,6 +169,11 @@ function Sidebar() {
           <>
             <hr className="border-secondary my-3" />
             <ul className="nav nav-pills flex-column gap-2">
+              <li className="nav-item">
+                <Link to="/dashboard" className={`nav-link d-flex align-items-center ${location.pathname === "/dashboard" ? "active" : "text-light"}`}>
+                  <div className="d-flex align-items-center"><i className="bi bi-speedometer2 me-2 text-primary fs-3"></i><span className="me-2">Dashboard</span></div>
+                  <span className="badge bg-primary ms-auto"> New</span></Link>
+              </li>
               <li className="nav-item">
                 <Link to="/superadmin/roles" className={`nav-link d-flex align-items-center ${location.pathname === "/superadmin/roles" ? "active" : "text-light"}`}>
                   <i className="bi bi-person-workspace me-2 text-primary"></i> Roles
@@ -160,16 +189,14 @@ function Sidebar() {
                   <i className="bi bi-person-vcard me-2 text-warning"></i> User Roles
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to="/employee/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/changepassword" ? "active" : "text-light"}`}>
+                  <i className="bi bi-lock-fill me-2 text-warning"></i> Change Password
+                </Link>
+              </li>
             </ul>
           </>
         )}
-        <ul className="nav nav-pills flex-column gap-2">
-          <li className="nav-item">
-            <Link to="/employee/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/changepassword" ? "active" : "text-light"}`}>
-              <i className="bi bi-lock-fill me-2 text-warning"></i> Change Password
-            </Link>
-          </li>
-        </ul>
       </div>
     </div>
   );

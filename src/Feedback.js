@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import axios from "axios";
+
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function Feedback() {
   const [formData, setFormData] = useState({
     name: "",
-    mobile: "",
     email: "",
-    feedback: ""
+    comment: "",
+    rating: ""
   });
 
   const handleChange = (e) => {
@@ -15,10 +18,16 @@ function Feedback() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Feedback sent successfully!");
-    setFormData({ name: "", mobile: "", email: "", feedback: "" });
+    try {
+      await axios.post(`${API_BASE}/api/Feedbacks`, formData); // 👈 correct API URL
+      alert("Feedback sent successfully!");
+      setFormData({ name: "", email: "", comment: "", rating: "" });
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      alert("Something went wrong!");
+    }
   };
 
   return (
@@ -51,20 +60,6 @@ function Feedback() {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label fw-semibold">Mobile Number</label>
-                  <input
-                    type="tel"
-                    className="form-control"
-                    name="mobile"
-                    value={formData.mobile}
-                    onChange={handleChange}
-                    placeholder="Enter mobile number"
-                    pattern="[0-9]{10}"
-                    required
-                  />
-                </div>
-
-                <div className="mb-3">
                   <label className="form-label fw-semibold">Email Address</label>
                   <input
                     type="email"
@@ -78,16 +73,31 @@ function Feedback() {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label fw-semibold">Your Feedback</label>
+                  <label className="form-label fw-semibold">Your Comment</label>
                   <textarea
                     className="form-control"
-                    name="feedback"
-                    rows="4"
-                    value={formData.feedback}
+                    name="comment"
+                    rows="3"
+                    value={formData.comment}
                     onChange={handleChange}
-                    placeholder="Write your feedback here..."
+                    placeholder="Write your comment here..."
                     required
                   ></textarea>
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label fw-semibold">Rating (1-5)</label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    name="rating"
+                    value={formData.rating}
+                    onChange={handleChange}
+                    placeholder="Enter rating"
+                    min="1"
+                    max="5"
+                    required
+                  />
                 </div>
 
                 <div className="text-center">

@@ -1,26 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Feedbackreport() {
-  const [feedbacks] = useState([
-    { id: 1, name: "Vivek Solanki", email: "vivek123@gmail.com", comment: "Great service!", rating: 5 },
-    { id: 2, name: "Rizwan Ahmad", email: "rizwan123@gmail.com", comment: "Very helpful and professional.", rating: 4 },
-    { id: 3, name: "Piyush Sharma", email: "piyush123@gmail.com", comment: "Average experience.", rating: 3 },
-    { id: 4, name: "Neha Verma", email: "neha123@gmail.com", comment: "Excellent support team!", rating: 5 },
-    { id: 5, name: "Aarav Gupta", email: "aarav123@gmail.com", comment: "Could be better.", rating: 2 },
-    { id: 6, name: "Shiwansh Solutions", email: "info@shiwansh.com", comment: "Great collaboration with your platform.", rating: 4 },
-    { id: 7, name: "Tech Innovators", email: "info@techinnovator.com", comment: "Smooth integration with our systems.", rating: 5 },
-    { id: 8, name: "GreenTech Solutions", email: "info@greentech.com", comment: "Helpful support and timely updates.", rating: 4 },
-    { id: 9, name: "EduTech Hub", email: "info@edutech.com", comment: "Impressive tools for educational outreach.", rating: 5 },
-    { id: 10, name: "HealthCare Innovations", email: "info@healthcare.com", comment: "Efficient and reliable services.", rating: 5 }
-  ]);
-
+  const [feedbacks, setFeedbacks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(3);
 
-  const filteredFeedbacks = feedbacks.filter(fb =>
+  const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:5269";
+
+  useEffect(() => {
+    fetchFeedbacks();
+  }, []);
+
+  const fetchFeedbacks = async () => {
+    try {
+      const response = await axios.get(`${API_BASE}/api/Feedbacks`);
+      setFeedbacks(response.data.data); 
+    } catch (error) {
+      console.error("Error fetching feedbacks:", error);
+    }
+  };
+
+
+  const filteredFeedbacks = (feedbacks || []).filter(fb =>
     fb.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
 
   const startIndex = (currentPage - 1) * pageSize;
   const paginatedFeedbacks = filteredFeedbacks.slice(startIndex, startIndex + pageSize);
@@ -44,7 +50,7 @@ function Feedbackreport() {
     return (
       <>
         {[...Array(total)].map((_, i) => (
-          <span key={i} style={{ color: i < rating ? "#ffc107" : "#e4e5e9", fontSize: "1.5rem" }}>
+          <span key={i} style={{ color: i < rating ? "#ffc107" : "#e4e5e9", fontSize: "1.2rem" }}>
             ★
           </span>
         ))}

@@ -9,6 +9,8 @@ function Header() {
   const [showSignup, setShowSignup] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const [userName, setUserName] = useState(localStorage.getItem("user") || "");
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const [signupName, setSignupName] = useState("");
   const [signupMobile, setSignupMobile] = useState("");
@@ -65,6 +67,8 @@ function Header() {
         localStorage.setItem("token", token);
         localStorage.setItem("user", user.fullName);
         localStorage.setItem("role", role.name);
+        localStorage.setItem("employeeId", user.id); 
+        localStorage.setItem("email", signupEmail);
 
         setUserName(user.fullName);
         setIsLoggedIn(true);
@@ -122,6 +126,8 @@ function Header() {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         localStorage.removeItem("role");
+        localStorage.removeItem("employeeId");
+        localStorage.removeItem("email");
         setIsLoggedIn(false);
         setUserName("");
         navigate("/");
@@ -189,10 +195,12 @@ function Header() {
                     <label className="form-label">Email</label>
                     <input type="email" className="form-control" placeholder="User Id" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
                   </div>
-                  <div className="mb-3">
+                  <div className="mb-3 position-relative">
                     <label className="form-label">Password</label>
-                    <input type="password" className="form-control" placeholder="Password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
+                    <input type={showPassword ? "text" : "password"} className="form-control pe-5" placeholder="Password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
+                    <i className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`} style={{position: "absolute", top: "38px", right: "12px", cursor: "pointer", color: "#6c757d" }} onClick={() => setShowPassword(!showPassword)}></i>
                   </div>
+
                   <button type="submit" className="btn btn-primary w-100 mb-3">Login</button>
                   <div className="d-flex justify-content-center gap-2">
                     <button className="btn btn-outline-danger btn-sm"><FaGoogle /></button>
