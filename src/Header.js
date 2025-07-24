@@ -89,10 +89,12 @@ function Header() {
         if (role.name === "Admin") {
           navigate("/admin/employeereport");
         } else if (role.name === "Employee") {
-          navigate("/employee/welcome");
+          navigate("/employee/myprofile");
         } else if (role.name === "Company") {
           navigate("/company/postnewjob");
-        } else {
+        } else if (role.name === "Super Admin") {
+          navigate("/company/users");
+        }else {
           navigate("/");
         }
       } else {

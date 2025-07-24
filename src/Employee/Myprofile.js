@@ -21,6 +21,7 @@ const Myprofile = () => {
         fetchProfile();
     }, []);
 
+
     const fetchProfile = async () => {
         try {
             const res = await axios.get(`${baseURL}/api/Employeejpes/${employeeId}`);
@@ -34,6 +35,33 @@ const Myprofile = () => {
             console.log("No profile found.");
         }
     };
+
+    const handleDownload = () => {
+        if (!employee) return;
+
+        const headers = [
+            "Firstname", "Middlename", "Lastname", "Address", "City", "Pincode",
+            "Mobile", "Detail", "Degree", "Skill", "Passyear", "Experience", "ImageUrl"
+        ];
+
+        const csvRows = [headers.join(",")];
+
+        const values = headers.map((header) => {
+            const key = header.toLowerCase();
+            return `"${employee[key] || ""}"`; // wrap in quotes to handle commas
+        });
+
+        csvRows.push(values.join(","));
+
+        const blob = new Blob([csvRows.join("\n")], { type: "text/csv" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "MyProfile.csv";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -79,6 +107,9 @@ const Myprofile = () => {
     const experienceOptions = ["Fresher", "1 year", "2 years", "3+ years"];
 
     return (
+        <>
+        <div className="d-flex justify-content-end mb-3"><button className="btn btn-success" onClick={handleDownload} type="button"><i className="bi bi-download me-1"></i> Export</button></div>
+        
         <div className="max-w-5xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg" style={{ background: "linear-gradient(to right, #8fcdd5ff, rgba(124, 240, 239, 1))" }}>
             <h2 className="text-2xl font-bold text-center mb-6"><i className="bi bi-person-badge-fill me-2 text-primary"></i>My Profile</h2>
             <div className="card shadow p-4" style={{ background: "linear-gradient(to right, #f8fafc, rgba(224, 242, 254, 1))" }}>
@@ -114,6 +145,7 @@ const Myprofile = () => {
                     </div>
                 </div>
             </div>
+            
 
             {showModal && (
                 <>
@@ -183,6 +215,7 @@ const Myprofile = () => {
                 </>
             )}
         </div>
+        </>
     );
 };
 
