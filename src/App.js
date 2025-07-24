@@ -9,7 +9,7 @@ import EmployeeMyinbox from './Employee/Myinbox';
 import EmployeeChangepassword from './Employee/Changepassword';
 import EmployeeLogout from './Employee/Logout';
 import CompanyPostnewjob from './Company/Postnewjob';
-import CompanyMyaccount from './Company/Myaccount';
+import Companyaccount from './Company/Companyaccount';
 import CompanyProfilematch from './Company/Profilematch';
 import CompanyAppliedjob from './Company/Appliedjob';
 import AdminEmployeereport from './Admin/Employeereport';
@@ -98,13 +98,13 @@ function Sidebar() {
                   <span className="badge bg-primary ms-auto"> New</span></Link>
               </li>
               <li className="nav-item">
-                <Link to="/company/postnewjob" className={`nav-link d-flex align-items-center ${location.pathname === "/company/postnewjob" ? "active" : "text-light"}`}>
-                  <i className="bi bi-plus-circle me-2 text-warning"></i> Post New Job
+                <Link to="/company/companyaccount" className={`nav-link d-flex align-items-center ${location.pathname === "/company/companyaccount" ? "active" : "text-light"}`}>
+                  <i className="bi bi-building me-2"></i> Company Account
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/company/myaccount" className={`nav-link d-flex align-items-center ${location.pathname === "/company/myaccount" ? "active" : "text-light"}`}>
-                  <i className="bi bi-person-circle me-2 text-primary"></i> My Account
+                <Link to="/company/postnewjob" className={`nav-link d-flex align-items-center ${location.pathname === "/company/postnewjob" ? "active" : "text-light"}`}>
+                  <i className="bi bi-plus-circle me-2 text-warning"></i> Post New Job
                 </Link>
               </li>
               <li className="nav-item">
@@ -216,7 +216,7 @@ function App() {
               <Route path="/employee/changepassword" element={<EmployeeChangepassword />} />
               <Route path="/employee/logout" element={<EmployeeLogout />} />
               <Route path="/company/postnewjob" element={<CompanyPostnewjob />} />
-              <Route path="/company/myaccount" element={<CompanyMyaccount />} />
+              <Route path="/company/companyaccount" element={<Companyaccount />} />
               <Route path="/company/profilematch" element={<CompanyProfilematch />} />
               <Route path="/company/appliedjob" element={<CompanyAppliedjob />} />
               <Route path="/admin/employeereport" element={<AdminEmployeereport />} />
