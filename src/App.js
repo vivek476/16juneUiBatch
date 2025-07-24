@@ -2,8 +2,7 @@ import { BrowserRouter, Route, Routes, Link, useLocation } from 'react-router-do
 import Header from './Header';
 import Dashboard from './Dashboard';
 import Footer from './Footer';
-import EmployeeWelcome from './Employee/Welcome';
-import EmployeeMyaccount from './Employee/Myaccount';
+import EmployeeMyprofile from './Employee/Myprofile';
 import EmployeeJobmatches from './Employee/Jobmatches';
 import EmployeeMyappliedjob from './Employee/Myappliedjob';
 import EmployeeMyinbox from './Employee/Myinbox';
@@ -60,13 +59,8 @@ function Sidebar() {
                   <span className="badge bg-primary ms-auto"> New</span></Link>
               </li>
               <li className="nav-item">
-                <Link to="/employee/welcome" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/welcome" ? "active" : "text-light"}`}>
-                  <i className="bi bi-emoji-smile me-2 text-warning"></i> Welcome
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/employee/myaccount" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/myaccount" ? "active" : "text-light"}`}>
-                  <i className="bi bi-person-fill me-2 text-primary"></i> My Account
+                <Link to="/employee/myprofile" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/myprofile" ? "active" : "text-light"}`}>
+                  <i className="bi bi-emoji-smile me-2 text-warning"></i> My Profile
                 </Link>
               </li>
               <li className="nav-item">
@@ -215,8 +209,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/header" element={<Header />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/employee/welcome" element={<EmployeeWelcome />} />
-              <Route path="/employee/myaccount" element={<EmployeeMyaccount />} />
+              <Route path="/employee/myprofile" element={<EmployeeMyprofile />} />
               <Route path="/employee/jobmatches" element={<EmployeeJobmatches />} />
               <Route path="/employee/myappliedjob" element={<EmployeeMyappliedjob />} />
               <Route path="/employee/myinbox" element={<EmployeeMyinbox />} />
