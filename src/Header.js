@@ -93,7 +93,7 @@ function Header() {
         } else if (role.name === "Company") {
           navigate("/company/companyaccount");
         } else if (role.name === "Super Admin") {
-          navigate("/company/users");
+          navigate("/superadmin/users");
         }else {
           navigate("/");
         }

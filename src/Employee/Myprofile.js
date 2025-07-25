@@ -94,6 +94,7 @@ const Myprofile = () => {
             }
             setShowModal(false);
             fetchProfile(); // Refresh UI after add/update
+            e.preventDefault();
         } catch (err) {
             console.error("Save failed", err);
         }

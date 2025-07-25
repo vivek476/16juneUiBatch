@@ -1,19 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Employeereport() {
-    const [ereports] = useState([
-        { id: 1, name: "Vivek Solanki", email: "vivek123@gmail.com", degree: "MCA", skill: ".NET Core", experience: "2 years" },
-        { id: 2, name: "Rizwan Ahmad", email: "rizzu123@gmail.com", degree: "B.Tech", skill: "React.js", experience: "1 year" },
-        { id: 3, name: "Piyush Sharma", email: "piyush123@gmail.com", degree: "BCA", skill: "Node.js", experience: "1 year" },
-        { id: 4, name: "Avijit Gorai", email: "avijit123@gmail.com", degree: "MCA", skill: ".NET Core", experience: "3 years" }
-    ]);
-
+    const [ereports, setEReports] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(3);
+    const [pageSize, setPageSize] = useState(5);
+
+    const baseURL = process.env.REACT_APP_API_BASE_URL;
+
+    useEffect(() => {
+        fetchEmployeeData();
+    }, []);
+
+    const fetchEmployeeData = async () => {
+        try {
+            const response = await axios.get(`${baseURL}/api/Employeejpes`);
+            if (response.data?.data) {
+                setEReports(response.data.data);
+            }
+        } catch (err) {
+            console.error("Error fetching employee report", err);
+        }
+    };
 
     const filteredReports = ereports.filter(emp =>
-        emp.email.toLowerCase().includes(searchTerm.toLowerCase())
+        `${emp.firstname} ${emp.middlename || ""} ${emp.lastname}`
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
     );
 
     const startIndex = (currentPage - 1) * pageSize;
@@ -21,15 +35,24 @@ function Employeereport() {
     const totalPages = Math.ceil(filteredReports.length / pageSize);
 
     const handleDownload = () => {
-        const header = "ID,Name,Email,Degree,Skill,Experience\n";
+        const header = [
+            "EmployeeId", "Firstname", "Middlename", "Lastname", "Mobile", "Address", "City",
+            "Pincode", "Degree", "Skill", "Passyear", "Experience", "Detail", "ImageUrl"
+        ].join(",") + "\n";
+
         const rows = filteredReports.map(emp =>
-            `${emp.id},${emp.name},${emp.email},${emp.degree},${emp.skill},${emp.experience}`
+            [
+                emp.employeeId, emp.firstname, emp.middlename || "", emp.lastname,
+                emp.mobile, emp.address, emp.city, emp.pincode,
+                emp.degree, emp.skill, emp.passyear, emp.experience,
+                emp.detail, emp.imageUrl
+            ].join(",")
         ).join("\n");
 
         const blob = new Blob([header + rows], { type: "text/csv" });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "employee_report.csv";
+        link.download = "employee_report_full.csv";
         link.click();
     };
 
@@ -45,7 +68,7 @@ function Employeereport() {
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Search by email..."
+                        placeholder="Search by name..."
                         value={searchTerm}
                         onChange={e => {
                             setSearchTerm(e.target.value);
@@ -70,7 +93,6 @@ function Employeereport() {
                             setCurrentPage(1);
                         }}
                     >
-                        <option value={1}>1</option>
                         <option value={3}>3</option>
                         <option value={5}>5</option>
                         <option value={10}>10</option>
@@ -78,36 +100,60 @@ function Employeereport() {
                 </div>
             </div>
 
-            <table className="table table-bordered table-striped">
-                <thead className="table-light">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Degree</th>
-                        <th>Skill</th>
-                        <th>Experience</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {paginatedReports.length > 0 ? (
-                        paginatedReports.map(emp => (
-                            <tr key={emp.id}>
-                                <td>{emp.id}</td>
-                                <td>{emp.name}</td>
-                                <td>{emp.email}</td>
-                                <td>{emp.degree}</td>
-                                <td>{emp.skill}</td>
-                                <td>{emp.experience}</td>
-                            </tr>
-                        ))
-                    ) : (
+            <div className="table-responsive">
+                <table className="table table-bordered table-striped">
+                    <thead className="table-light">
                         <tr>
-                            <td colSpan="6" className="text-center">No Employee Found.</td>
+                            <th>Employee ID</th>
+                            <th>Name</th>
+                            <th>Mobile</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>Pincode</th>
+                            <th>Degree</th>
+                            <th>Skill</th>
+                            <th>Pass Year</th>
+                            <th>Experience</th>
+                            <th>Detail</th>
+                            <th>Image</th>
                         </tr>
-                    )}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {paginatedReports.length > 0 ? (
+                            paginatedReports.map(emp => (
+                                <tr key={emp.employeeId}>
+                                    <td>{emp.employeeId}</td>
+                                    <td>{`${emp.firstname} ${emp.middlename || ""} ${emp.lastname}`.trim()}</td>
+                                    <td>{emp.mobile}</td>
+                                    <td>{emp.address}</td>
+                                    <td>{emp.city}</td>
+                                    <td>{emp.pincode}</td>
+                                    <td>{emp.degree}</td>
+                                    <td>{emp.skill}</td>
+                                    <td>{emp.passyear}</td>
+                                    <td>{emp.experience}</td>
+                                    <td>{emp.detail}</td>
+                                    <td>
+                                        {emp.imageUrl ? (
+                                            <img
+                                                src={`${baseURL}/${emp.imageUrl}`}
+                                                alt="Profile"
+                                                style={{ width: "60px", height: "60px", objectFit: "cover", borderRadius: "5px" }}
+                                            />
+                                        ) : (
+                                            "No Image"
+                                        )}
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="14" className="text-center">No Employee Found.</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
 
             <nav>
                 <ul className="pagination justify-content-center">

@@ -7,7 +7,6 @@ import EmployeeJobmatches from './Employee/Jobmatches';
 import EmployeeMyappliedjob from './Employee/Myappliedjob';
 import EmployeeMyinbox from './Employee/Myinbox';
 import EmployeeChangepassword from './Employee/Changepassword';
-import EmployeeLogout from './Employee/Logout';
 import CompanyPostnewjob from './Company/Postnewjob';
 import Companyaccount from './Company/Companyaccount';
 import CompanyProfilematch from './Company/Profilematch';
@@ -214,7 +213,6 @@ function App() {
               <Route path="/employee/myappliedjob" element={<EmployeeMyappliedjob />} />
               <Route path="/employee/myinbox" element={<EmployeeMyinbox />} />
               <Route path="/employee/changepassword" element={<EmployeeChangepassword />} />
-              <Route path="/employee/logout" element={<EmployeeLogout />} />
               <Route path="/company/postnewjob" element={<CompanyPostnewjob />} />
               <Route path="/company/companyaccount" element={<Companyaccount />} />
               <Route path="/company/profilematch" element={<CompanyProfilematch />} />
