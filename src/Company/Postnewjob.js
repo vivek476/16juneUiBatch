@@ -182,85 +182,242 @@ function Postnewjob() {
       {/* Add/Edit Modal */}
       {addUpdateModal && (
         <>
-          <div className="modal fade show" style={{ display: "block" }}>
-            <div className="modal-dialog modal-lg">
-              <div className="modal-content">
-                <div className="modal-header bg-primary text-white">
-                  <h5 className="modal-title">{id === 0 ? "Post" : "Update"} Job Details</h5>
-                  <button type="button" className="btn-close" onClick={() => setAddUpdateModal(false)}></button>
+          <div
+            className="modal fade show"
+            style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+            tabIndex="-1"
+          >
+            <div className="modal-dialog modal-lg modal-dialog-centered">
+              <div className="modal-content border-0 shadow rounded-4">
+                {/* Header */}
+                <div
+                  className="modal-header text-white rounded-top-4"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(11,151,206,1) 0%, rgba(2,117,216,1) 100%)",
+                  }}
+                >
+                  <h5 className="modal-title">
+                    <i className="bi bi-pencil-square me-2"></i>
+                    {id === 0 ? "Post New Job" : "Update Job Details"}
+                  </h5>
+                  <button
+                    type="button"
+                    className="btn-close btn-close-white"
+                    onClick={() => setAddUpdateModal(false)}
+                  ></button>
                 </div>
-                <div className="modal-body">
-                  <input type="text" className="form-control mb-2" placeholder="Job Title" value={jobtitle} onChange={(e) => setJobtitle(e.target.value)} />
-                  <select style={{ padding: '8px', borderRadius: '4px', width: '100%' }} value={degree} onChange={(e) => setDegree(e.target.value)}>
-                    <option value="">Select Degree</option>
-                    <option value="B.Tech">B.Tech</option>
-                    <option value="BCA">BCA</option>
-                    <option value="BSC">BSC</option>
-                    <option value="MCA">MCA</option>
-                    <option value="M.Tech">M.Tech</option>
-                  </select>
 
-                  <select style={{ padding: '8px', borderRadius: '4px', width: '100%' }} value={skill} onChange={(e) => setSkill(e.target.value)}>
-                    <option value="">Select Skill</option>
-                    <option value="React.js">React.js</option>
-                    <option value="JavaScript">JavaScript</option>
-                    <option value="Node.js">Node.js</option>
-                    <option value=".NET Core">.NET Core</option>
-                    <option value="AWS">AWS</option>
-                  </select>
+                {/* Body */}
+                <div className="modal-body px-5 py-4 bg-light">
+                  <div className="row g-3">
+                    {/* Job Title */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Job Title</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter job title"
+                        value={jobtitle}
+                        onChange={(e) => setJobtitle(e.target.value)}
+                      />
+                    </div>
 
-                  <select style={{ padding: '8px', borderRadius: '4px', width: '100%' }} value={experience} onChange={(e) => setExperience(e.target.value)}>
-                    <option value="">Select Experience</option>
-                    <option value="Fresher">Fresher</option>
-                    <option value="0-1 Year">0-1 Year</option>
-                    <option value="1-3 Years">1-3 Years</option>
-                    <option value="3+ Years">3+ Years</option>
-                  </select>
+                    {/* Degree */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Degree</label>
+                      <select
+                        className="form-select"
+                        value={degree}
+                        onChange={(e) => setDegree(e.target.value)}
+                      >
+                        <option value="">Select Degree</option>
+                        <option value="B.Tech">B.Tech</option>
+                        <option value="BCA">BCA</option>
+                        <option value="BSC">BSC</option>
+                        <option value="MCA">MCA</option>
+                        <option value="M.Tech">M.Tech</option>
+                      </select>
+                    </div>
 
-                  <input type="text" className="form-control mb-2" placeholder="Salary" value={salary} onChange={(e) => setSalary(e.target.value)} />
-                  <input type="text" className="form-control mb-2" placeholder="Vacancy" value={vacancy} onChange={(e) => setVacancy(e.target.value)} />
-                  <input type="text" className="form-control mb-2" placeholder="Detail" value={detail} onChange={(e) => setDetail(e.target.value)} />
+                    {/* Skill */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Skill</label>
+                      <select
+                        className="form-select"
+                        value={skill}
+                        onChange={(e) => setSkill(e.target.value)}
+                      >
+                        <option value="">Select Skill</option>
+                        <option value="React.js">React.js</option>
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="Node.js">Node.js</option>
+                        <option value=".NET Core">.NET Core</option>
+                        <option value="AWS">AWS</option>
+                      </select>
+                    </div>
+
+                    {/* Experience */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Experience</label>
+                      <select
+                        className="form-select"
+                        value={experience}
+                        onChange={(e) => setExperience(e.target.value)}
+                      >
+                        <option value="">Select Experience</option>
+                        <option value="Fresher">Fresher</option>
+                        <option value="0-1 Year">0-1 Year</option>
+                        <option value="1-3 Years">1-3 Years</option>
+                        <option value="3+ Years">3+ Years</option>
+                      </select>
+                    </div>
+
+                    {/* Salary */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Salary</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter salary"
+                        value={salary}
+                        onChange={(e) => setSalary(e.target.value)}
+                      />
+                    </div>
+
+                    {/* Vacancy */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">Vacancy</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter no. of vacancies"
+                        value={vacancy}
+                        onChange={(e) => setVacancy(e.target.value)}
+                      />
+                    </div>
+
+                    {/* Detail */}
+                    <div className="col-12">
+                      <label className="form-label fw-semibold">Job Description</label>
+                      <textarea
+                        className="form-control"
+                        rows="3"
+                        placeholder="Enter job details"
+                        value={detail}
+                        onChange={(e) => setDetail(e.target.value)}
+                      ></textarea>
+                    </div>
+                  </div>
                 </div>
-                <div className="modal-footer">
-                  <button className="btn btn-secondary" onClick={() => setAddUpdateModal(false)}>Cancel</button>
-                  <button className="btn btn-primary" onClick={handleAddUpdate}>Post</button>
+
+                {/* Footer */}
+                <div className="modal-footer bg-light rounded-bottom-4">
+                  <button
+                    className="btn btn-outline-secondary"
+                    onClick={() => setAddUpdateModal(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button className="btn btn-primary" onClick={handleAddUpdate}>
+                    {id === 0 ? "Post Job" : "Update Job"}
+                  </button>
                 </div>
               </div>
             </div>
           </div>
+
           <div className="modal-backdrop fade show"></div>
         </>
       )}
+
 
       {/* View Modal */}
       {viewModal && (
         <>
-          <div className="modal fade show" style={{ display: "block" }}>
-            <div className="modal-dialog modal-lg">
-              <div className="modal-content">
-                <div className="modal-header bg-info text-white">
-                  <h5 className="modal-title">Posted Job</h5>
-                  <button type="button" className="btn-close" onClick={() => setViewModal(false)}></button>
+          <div
+            className="modal fade show"
+            style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+            tabIndex="-1"
+          >
+            <div className="modal-dialog modal-lg modal-dialog-centered">
+              <div className="modal-content shadow rounded-4 border-0">
+                {/* Modal Header */}
+                <div
+                  className="modal-header text-white rounded-top-4"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(11,151,206,1) 0%, rgba(2,117,216,1) 100%)",
+                  }}
+                >
+                  <h5 className="modal-title fw-semibold">
+                    <i className="bi bi-briefcase-fill me-2"></i>Posted Job Details
+                  </h5>
+                  <button
+                    type="button"
+                    className="btn-close btn-close-white"
+                    onClick={() => setViewModal(false)}
+                  ></button>
                 </div>
-                <div className="modal-body">
-                  <p><strong>Id:</strong> {id}</p>
-                  <p><strong>Job Title:</strong> {jobtitle}</p>
-                  <p><strong>Degree:</strong> {degree}</p>
-                  <p><strong>Skill:</strong> {skill}</p>
-                  <p><strong>Experience:</strong> {experience}</p>
-                  <p><strong>Salary:</strong> {salary}</p>
-                  <p><strong>Vacancy:</strong> {vacancy}</p>
-                  <p><strong>Detail:</strong> {detail}</p>
+
+                {/* Modal Body */}
+                <div
+                  className="modal-body px-5 py-4"
+                  style={{ backgroundColor: "#f5fafd" }}
+                >
+                  <div className="row gy-3">
+                    <div className="col-md-6">
+                      <p className="mb-1 text-secondary fw-semibold">Job ID</p>
+                      <div className="fw-bold">{id}</div>
+                    </div>
+                    <div className="col-md-6">
+                      <p className="mb-1 text-secondary fw-semibold">Job Title</p>
+                      <div className="fw-bold">{jobtitle}</div>
+                    </div>
+                    <div className="col-md-6">
+                      <p className="mb-1 text-secondary fw-semibold">Degree</p>
+                      <div className="fw-bold">{degree}</div>
+                    </div>
+                    <div className="col-md-6">
+                      <p className="mb-1 text-secondary fw-semibold">Skill</p>
+                      <div className="fw-bold">{skill}</div>
+                    </div>
+                    <div className="col-md-6">
+                      <p className="mb-1 text-secondary fw-semibold">Experience</p>
+                      <div className="fw-bold">{experience}</div>
+                    </div>
+                    <div className="col-md-6">
+                      <p className="mb-1 text-secondary fw-semibold">Salary</p>
+                      <div className="fw-bold">{salary}</div>
+                    </div>
+                    <div className="col-md-6">
+                      <p className="mb-1 text-secondary fw-semibold">Vacancy</p>
+                      <div className="fw-bold">{vacancy}</div>
+                    </div>
+                    <div className="col-12">
+                      <p className="mb-1 text-secondary fw-semibold">Job Description</p>
+                      <div className="fw-bold">{detail}</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="modal-footer">
-                  <button className="btn btn-secondary" onClick={() => setViewModal(false)}>Close</button>
+
+                {/* Modal Footer */}
+                <div className="modal-footer bg-light rounded-bottom-4">
+                  <button
+                    className="btn btn-outline-secondary"
+                    onClick={() => setViewModal(false)}
+                  >
+                    Close
+                  </button>
                 </div>
               </div>
             </div>
           </div>
+
           <div className="modal-backdrop fade show"></div>
         </>
       )}
+
     </div>
   );
 }
