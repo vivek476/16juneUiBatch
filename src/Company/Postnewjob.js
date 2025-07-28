@@ -1,118 +1,140 @@
-import { useState } from "react";
-import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 function Postnewjob() {
-  const [jobs, setJobs] = useState([
-    {
-      id: 1,
-      title: "Frontend Developer",
-      degree: "B.Tech",
-      skill: "React",
-      experience: "1-3 Years",
-      salary: "50000",
-      vacancy: 2,
-      details: "Experience with React and REST APIs"
-    },
-    {
-      id: 2,
-      title: "Backend Developer",
-      degree: "MCA",
-      skill: "Node.js",
-      experience: "3-5 Years",
-      salary: "60000",
-      vacancy: 1,
-      details: "Strong backend experience"
-    }
-  ]);
+  const [list, setList] = useState([]);
 
-  const [showAddModal, setShowAddModal] = useState(false);
+  const [id, setId] = useState(0);
+  const [jobtitle, setJobtitle] = useState("");
+  const [degree, setDegree] = useState("");
+  const [skill, setSkill] = useState("");
+  const [experience, setExperience] = useState("");
+  const [salary, setSalary] = useState("");
+  const [vacancy, setVacancy] = useState("");
+  const [detail, setDetail] = useState("");
+
+  const [addUpdateModal, setAddUpdateModal] = useState(false);
+  const [viewModal, setViewModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize, setPageSize] = useState(5);
 
-  const [jobForm, setJobForm] = useState({
-    title: "",
-    degree: "",
-    skill: "",
-    experience: "",
-    salary: "",
-    vacancy: "",
-    details: ""
-  });
+  const apiUrl = "http://localhost:5269/api/Postjobs";
 
-  const handleAddJob = () => {
-    const newId = jobs.length + 1;
-    const newJob = { id: newId, ...jobForm };
-    setJobs([...jobs, newJob]);
-    setShowAddModal(false);
-    setJobForm({
-      title: "",
-      degree: "",
-      skill: "",
-      experience: "",
-      salary: "",
-      vacancy: "",
-      details: ""
-    });
+  const clearForm = () => {
+    setId(0);
+    setJobtitle("");
+    setDegree("");
+    setSkill("");
+    setExperience("");
+    setSalary("");
+    setVacancy("");
+    setDetail("");
+  };
+
+  const handleAddUpdate = async () => {
+    const customer = { id, jobtitle, degree, skill, experience, salary, vacancy, detail };
+    try {
+      if (id === 0) {
+        await axios.post(apiUrl, customer);
+        Swal.fire("Success", "Job posted successfully!", "success");
+      } else {
+        await axios.put(apiUrl, customer);
+        Swal.fire("Success", "Job updated successfully!", "success");
+      }
+      setAddUpdateModal(false);
+      clearForm();
+      fetchData(); // refresh data
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error", "Something went wrong!", "error");
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${apiUrl}/${id}`);
+      Swal.fire("Deleted!", "Job deleted successfully!", "success");
+      fetchData(); // refresh data
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error", "Failed to delete!", "error");
+    }
+  };
+
+  const handleEdit = (obj) => {
+    setId(obj.id);
+    setJobtitle(obj.jobtitle);
+    setDegree(obj.degree);
+    setSkill(obj.skill);
+    setExperience(obj.experience);
+    setSalary(obj.salary);
+    setVacancy(obj.vacancy);
+    setDetail(obj.detail);
+    setAddUpdateModal(true);
+  };
+
+  const handleView = (obj) => {
+    setId(obj.id);
+    setJobtitle(obj.jobtitle);
+    setDegree(obj.degree);
+    setSkill(obj.skill);
+    setExperience(obj.experience);
+    setSalary(obj.salary);
+    setVacancy(obj.vacancy);
+    setDetail(obj.detail);
+    setViewModal(true);
   };
 
   const handleDownload = () => {
-    const header = "Job Title,Degree,Skill,Experience,Salary,Vacancy,Details\n";
-    const csv = jobs.map(j =>
-      `${j.title},${j.degree},${j.skill},${j.experience},${j.salary},${j.vacancy},${j.details}`
-    ).join("\n");
+    const csvContent =
+      "Id,Name,Address,Mobile,Email,Password\n" +
+      list.map(c => `${c.id},${c.jobtitle},${c.degree},${c.skill},${c.experience},${c.salary},${c.vacancy},${c.detail}`).join("\n");
 
-    const blob = new Blob([header + csv], { type: "text/csv" });
+    const blob = new Blob([csvContent], { type: "text/csv" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "posted_jobs.csv";
+    link.download = "Postjobs.csv";
     link.click();
   };
 
-  const filteredJobs = jobs.filter(j =>
-    j.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const fetchData = () => {
+    axios.get(apiUrl).then(res => setList(res.data)).catch(err => console.error(err));
+  };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const filteredList = list.filter(c =>
+    c.jobtitle.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   const startIndex = (currentPage - 1) * pageSize;
-  const paginatedJobs = filteredJobs.slice(startIndex, startIndex + pageSize);
-  const totalPages = Math.ceil(filteredJobs.length / pageSize);
+  const paginatedList = filteredList.slice(startIndex, startIndex + pageSize);
+  const totalPages = Math.ceil(filteredList.length / pageSize);
 
   return (
-    <div className="container mt-4">
-      <h2 className="text-muted"><i className="bi bi-plus-circle me-2 text-success"></i>Post New Job</h2>
-      <button className="btn btn-primary mb-3" onClick={() => setShowAddModal(true)}>Post Job</button>
-
-      <div className="row g-2 mb-3 align-items-center">
-        <div className="col-md-4">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={e => {
-              setSearchTerm(e.target.value);
-              setCurrentPage(1);
-            }}
-          />
-        </div>
-        <div className="col-md-4">
-          <button className="btn btn-success" onClick={handleDownload}>
-            <i className="bi bi-download"></i> Export
+    <div className="container">
+      <div className="d-flex justify-content-between mb-2 gap-2">
+        <h4><i className="bi bi-people-fill me-2 text-primary fs-2"></i> Manage Jobs</h4>
+        <div className="d-flex gap-2">
+          <button className="btn btn-primary" onClick={() => { clearForm(); setAddUpdateModal(true); }}>
+            <i className="bi bi-plus-lg"></i> Post New Job
           </button>
+          <button className="btn btn-success" onClick={handleDownload}>📥 Export CSV</button>
         </div>
-        <div className="col-md-4 text-md-end">
-          <label className="form-label me-2 mb-0">Items per page:</label>
-          <select
-            className="form-select d-inline-block w-auto"
-            value={pageSize}
-            onChange={e => {
-              setPageSize(parseInt(e.target.value));
-              setCurrentPage(1);
-            }}
-          >
-            <option value={1}>1</option>
+      </div>
+
+      <div className="d-flex justify-content-between mb-3 gap-2">
+        <input type="text" className="form-control" placeholder="🔍 Search by name..." value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }} style={{ maxWidth: "250px" }} />
+        <div>
+          <label className="me-2">Items per page:</label>
+          <select className="form-select d-inline-block w-auto" value={pageSize} onChange={(e) => { setPageSize(parseInt(e.target.value)); setCurrentPage(1); }}>
             <option value={3}>3</option>
             <option value={5}>5</option>
+            <option value={10}>10</option>
           </select>
         </div>
       </div>
@@ -120,48 +142,35 @@ function Postnewjob() {
       <table className="table table-bordered table-striped">
         <thead className="table-light">
           <tr>
-            <th>ID</th>
-            <th>Job Title</th>
-            <th>Degree</th>
-            <th>Skill</th>
-            <th>Experience</th>
-            <th>Salary</th>
-            <th>Vacancy</th>
-            <th>Details</th>
-            <th>Actions</th>
+            <th>Id</th><th>Job Title</th><th>Degree</th><th>Skill</th><th>Experience</th><th>Salary</th><th>Vacancy</th><th>Detail</th><th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {paginatedJobs.length > 0 ? (
-            paginatedJobs.map(j => (
-              <tr key={j.id}>
-                <td>{j.id}</td>
-                <td>{j.title}</td>
-                <td>{j.degree}</td>
-                <td>{j.skill}</td>
-                <td>{j.experience}</td>
-                <td>{j.salary}</td>
-                <td>{j.vacancy}</td>
-                <td>{j.details}</td>
-                <td>
-                  <div className="d-flex gap-2 justify-content-center">
-                    <button className="btn btn-sm btn-outline-primary" title="View"><FaEye /></button>
-                    <button className="btn btn-sm btn-outline-success" title="Edit"><FaEdit /></button>
-                    <button className="btn btn-sm btn-outline-danger" title="Delete"><FaTrash /></button>
-                  </div>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="8" className="text-center">No Job Found.</td>
+          {paginatedList.map(c => (
+            <tr key={c.id}>
+              <td>{c.id}</td>
+              <td>{c.jobtitle}</td>
+              <td>{c.degree}</td>
+              <td>{c.skill}</td>
+              <td>{c.experience}</td>
+              <td>{c.salary}</td>
+              <td>{c.vacancy}</td>
+              <td>{c.detail}</td>
+              <td>
+                <button className="border-0 bg-transparent me-2" title="Edit" onClick={() => handleEdit(c)}><i className="bi bi-pencil-fill text-primary fs-5"></i></button>
+                <button className="border-0 bg-transparent me-2" title="Delete" onClick={() => handleDelete(c.id)}><i className="bi bi-trash-fill text-danger fs-5"></i></button>
+                <button className="border-0 bg-transparent" title="View" onClick={() => handleView(c)}><i className="bi bi-eye-fill text-success fs-5"></i></button>
+              </td>
             </tr>
+          ))}
+          {paginatedList.length === 0 && (
+            <tr><td colSpan="6" className="text-center">No data found.</td></tr>
           )}
         </tbody>
       </table>
 
       <nav>
-        <ul className="pagination justify-content-center">
+        <ul className="pagination pagination-sm justify-content-center">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
             <li key={page} className={`page-item ${currentPage === page ? "active" : ""}`}>
               <button className="page-link" onClick={() => setCurrentPage(page)}>{page}</button>
@@ -170,114 +179,86 @@ function Postnewjob() {
         </ul>
       </nav>
 
-      {/* Modal */}
-      {showAddModal && (
+      {/* Add/Edit Modal */}
+      {addUpdateModal && (
         <>
-          <div className="modal fade show" style={{ display: "block" }} tabIndex="-1">
+          <div className="modal fade show" style={{ display: "block" }}>
             <div className="modal-dialog modal-lg">
               <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">Post New Job</h5>
-                  <button type="button" className="btn-close" onClick={() => setShowAddModal(false)}></button>
+                <div className="modal-header bg-primary text-white">
+                  <h5 className="modal-title">{id === 0 ? "Post" : "Update"} Job Details</h5>
+                  <button type="button" className="btn-close" onClick={() => setAddUpdateModal(false)}></button>
                 </div>
                 <div className="modal-body">
-                  <div className="row g-3">
-                    <div className="col-md-6">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Job Title"
-                        value={jobForm.title}
-                        onChange={e => setJobForm({ ...jobForm, title: e.target.value })}
-                      />
-                    </div>
+                  <input type="text" className="form-control mb-2" placeholder="Job Title" value={jobtitle} onChange={(e) => setJobtitle(e.target.value)} />
+                  <select style={{ padding: '8px', borderRadius: '4px', width: '100%' }} value={degree} onChange={(e) => setDegree(e.target.value)}>
+                    <option value="">Select Degree</option>
+                    <option value="B.Tech">B.Tech</option>
+                    <option value="BCA">BCA</option>
+                    <option value="BSC">BSC</option>
+                    <option value="MCA">MCA</option>
+                    <option value="M.Tech">M.Tech</option>
+                  </select>
 
-                    <div className="col-md-6">
-                      <select
-                        className="form-select"
-                        value={jobForm.degree}
-                        onChange={e => setJobForm({ ...jobForm, degree: e.target.value })}
-                      >
-                        <option value="">Select Degree</option>
-                        <option value="B.Tech">B.Tech</option>
-                        <option value="BCA">BCA</option>
-                        <option value="MCA">MCA</option>
-                        <option value="MBA">MBA</option>
-                        <option value="B.Sc">B.Sc</option>
-                        <option value="M.Tech">M.Tech</option>
-                        <option value="Bsc,Bca,Btech,Mtech,Mca">B.Sc, BCA, B.Tech, M.Tech, MCA</option>
-                      </select>
-                    </div>
+                  <select style={{ padding: '8px', borderRadius: '4px', width: '100%' }} value={skill} onChange={(e) => setSkill(e.target.value)}>
+                    <option value="">Select Skill</option>
+                    <option value="React.js">React.js</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="Node.js">Node.js</option>
+                    <option value=".NET Core">.NET Core</option>
+                    <option value="AWS">AWS</option>
+                  </select>
 
-                    <div className="col-md-6">
-                      <select
-                        className="form-select"
-                        value={jobForm.skill}
-                        onChange={e => setJobForm({ ...jobForm, skill: e.target.value })}
-                      >
-                        <option value="">Select Skill</option>
-                        <option value="React">React</option>
-                        <option value="JavaScript">javaScript</option>
-                        <option value=".NETCore">.NET Core</option>
-                        <option value="Node.js">Node.js</option>
-                        <option value="SQL">SQL</option>
-                        <option value="React,JavaScript,.NetCore,Nodejs,SQL">React.js, JavaScript, .NET Core, Node.js, SQL</option>
-                      </select>
-                    </div>
+                  <select style={{ padding: '8px', borderRadius: '4px', width: '100%' }} value={experience} onChange={(e) => setExperience(e.target.value)}>
+                    <option value="">Select Experience</option>
+                    <option value="Fresher">Fresher</option>
+                    <option value="0-1 Year">0-1 Year</option>
+                    <option value="1-3 Years">1-3 Years</option>
+                    <option value="3+ Years">3+ Years</option>
+                  </select>
 
-                    <div className="col-md-6">
-                      <select
-                        className="form-select"
-                        value={jobForm.experience}
-                        onChange={e => setJobForm({ ...jobForm, experience: e.target.value })}
-                      >
-                        <option value="">Select Experience</option>
-                        <option value="0-1 Year">0-1 Year</option>
-                        <option value="1-3 Years">1-3 Years</option>
-                        <option value="3-5 Years">3-5 Years</option>
-                        <option value="5+ Years">5+ Years</option>
-                      </select>
-                    </div>
-
-                    <div className="col-md-6">
-                      <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Salary"
-                        value={jobForm.salary}
-                        onChange={e => setJobForm({ ...jobForm, salary: e.target.value })}
-                      />
-                    </div>
-
-                    <div className="col-md-6">
-                      <input
-                        type="number"
-                        className="form-control"
-                        placeholder="No. of Vacancy"
-                        value={jobForm.vacancy}
-                        onChange={e => setJobForm({ ...jobForm, vacancy: e.target.value })}
-                      />
-                    </div>
-
-                    <div className="col-md-12">
-                      <textarea
-                        className="form-control"
-                        placeholder="Job Details"
-                        rows={3}
-                        value={jobForm.details}
-                        onChange={e => setJobForm({ ...jobForm, details: e.target.value })}
-                      ></textarea>
-                    </div>
-                  </div>
+                  <input type="text" className="form-control mb-2" placeholder="Salary" value={salary} onChange={(e) => setSalary(e.target.value)} />
+                  <input type="text" className="form-control mb-2" placeholder="Vacancy" value={vacancy} onChange={(e) => setVacancy(e.target.value)} />
+                  <input type="text" className="form-control mb-2" placeholder="Detail" value={detail} onChange={(e) => setDetail(e.target.value)} />
                 </div>
                 <div className="modal-footer">
-                  <button className="btn btn-secondary" onClick={() => setShowAddModal(false)}>Cancel</button>
-                  <button className="btn btn-primary" onClick={handleAddJob}>Post</button>
+                  <button className="btn btn-secondary" onClick={() => setAddUpdateModal(false)}>Cancel</button>
+                  <button className="btn btn-primary" onClick={handleAddUpdate}>Post</button>
                 </div>
               </div>
             </div>
           </div>
-          <div className="modal-backdrop fade show" onClick={() => setShowAddModal(false)}></div>
+          <div className="modal-backdrop fade show"></div>
+        </>
+      )}
+
+      {/* View Modal */}
+      {viewModal && (
+        <>
+          <div className="modal fade show" style={{ display: "block" }}>
+            <div className="modal-dialog modal-lg">
+              <div className="modal-content">
+                <div className="modal-header bg-info text-white">
+                  <h5 className="modal-title">Posted Job</h5>
+                  <button type="button" className="btn-close" onClick={() => setViewModal(false)}></button>
+                </div>
+                <div className="modal-body">
+                  <p><strong>Id:</strong> {id}</p>
+                  <p><strong>Job Title:</strong> {jobtitle}</p>
+                  <p><strong>Degree:</strong> {degree}</p>
+                  <p><strong>Skill:</strong> {skill}</p>
+                  <p><strong>Experience:</strong> {experience}</p>
+                  <p><strong>Salary:</strong> {salary}</p>
+                  <p><strong>Vacancy:</strong> {vacancy}</p>
+                  <p><strong>Detail:</strong> {detail}</p>
+                </div>
+                <div className="modal-footer">
+                  <button className="btn btn-secondary" onClick={() => setViewModal(false)}>Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="modal-backdrop fade show"></div>
         </>
       )}
     </div>
