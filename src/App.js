@@ -21,6 +21,7 @@ import Contactus from './Contactus';
 import Roles from './Superadmin/Roles';
 import Users from './Superadmin/Users';
 import Userroles from './Superadmin/Userroles';
+import Customer from './Superadmin/Customer';
 import { useEffect, useState } from 'react';
 
 function Sidebar() {
@@ -183,6 +184,11 @@ function Sidebar() {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link to="/superadmin/customer" className={`nav-link d-flex align-items-center ${location.pathname === "/superadmin/customer" ? "active" : "text-light"}`}>
+                  <i className="bi bi-person-lines-fill me-2 text-info"></i> Customer
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link to="/employee/changepassword" className={`nav-link d-flex align-items-center ${location.pathname === "/employee/changepassword" ? "active" : "text-light"}`}>
                   <i className="bi bi-lock-fill me-2 text-warning"></i> Change Password
                 </Link>
@@ -227,6 +233,7 @@ function App() {
               <Route path="/superadmin/roles" element={<Roles />} />
               <Route path="/superadmin/users" element={<Users />} />
               <Route path="/superadmin/userroles" element={<Userroles />} />
+              <Route path="/superadmin/customer" element={<Customer />} />
             </Routes>
           </div>
         </div>
